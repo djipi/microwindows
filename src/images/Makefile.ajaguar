@@ -1,0 +1,148 @@
+# images objects list
+#
+ObjIMAGES	=	$(O_IMAGES_DIR)/car8.o \
+				$(O_IMAGES_DIR)/microwin.o \
+				$(O_IMAGES_DIR)/dragon.o \
+				$(O_IMAGES_DIR)/penguin.o \
+				$(O_IMAGES_DIR)/mwmine/minebomb.o \
+				$(O_IMAGES_DIR)/mwmine/mineflag.o \
+				$(O_IMAGES_DIR)/mwmine/minedone.o \
+				$(O_IMAGES_DIR)/mwmine/mineface.o \
+				$(O_IMAGES_DIR)/mwmine/minefacelost.o \
+				$(O_IMAGES_DIR)/mwmine/minehitfalse.o
+#
+ObjIMAGES_d	=	$(O_IMAGES_DIR)/car8.d \
+				$(O_IMAGES_DIR)/microwin.d \
+				$(O_IMAGES_DIR)/dragon.d \
+				$(O_IMAGES_DIR)/penguin.d \
+				$(O_IMAGES_DIR)/mwmine/minebomb.d \
+				$(O_IMAGES_DIR)/mwmine/mineflag.d \
+				$(O_IMAGES_DIR)/mwmine/minedone.d \
+				$(O_IMAGES_DIR)/mwmine/mineface.d \
+				$(O_IMAGES_DIR)/mwmine/minefacelost.d \
+				$(O_IMAGES_DIR)/mwmine/minehitfalse.d
+#
+# images sources generated list
+#
+CIMAGES	=	$(C_IMAGES_DIR)/car8.c \
+			$(C_IMAGES_DIR)/close4.c \
+			$(C_IMAGES_DIR)/cs1.c \
+			$(C_IMAGES_DIR)/dragon.c \
+			$(C_IMAGES_DIR)/g24.c \
+			$(C_IMAGES_DIR)/max4.c \
+			$(C_IMAGES_DIR)/micro2.c \
+			$(C_IMAGES_DIR)/microwin.c \
+			$(C_IMAGES_DIR)/min4.c \
+			$(C_IMAGES_DIR)/penguin.c \
+			$(C_IMAGES_DIR)/rle8.c \
+			$(C_IMAGES_DIR)/stdpal4.c \
+			$(C_IMAGES_DIR)/test1bpp.c \
+			$(C_IMAGES_DIR)/test4bpp.c \
+			$(C_IMAGES_DIR)/test8bpp.c \
+			$(C_IMAGES_DIR)/test24bpp.c \
+			$(C_IMAGES_DIR)/under4.c \
+			$(C_IMAGES_DIR)/zion208.c \
+			$(C_IMAGES_DIR)/mwmine/minebomb.c \
+			$(C_IMAGES_DIR)/mwmine/minedone.c \
+			$(C_IMAGES_DIR)/mwmine/mineface.c \
+			$(C_IMAGES_DIR)/mwmine/minefacelost.c \
+			$(C_IMAGES_DIR)/mwmine/mineflag.c \
+			$(C_IMAGES_DIR)/mwmine/minehitfalse.c
+
+
+# images
+#
+compile_images:	$(ObjIMAGES)
+#
+# Include the dependence file
+include $(ObjIMAGES_d)
+#
+$(C_IMAGES_DIR)/car8.c: $(IMAGES_DEMOS_DIR)/car8.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/car8.d:
+$(O_IMAGES_DIR)/car8.o: $(C_IMAGES_DIR)/car8.c $(O_IMAGES_DIR)/car8.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/car8.s
+endif
+#
+$(C_IMAGES_DIR)/dragon.c: $(IMAGES_DEMOS_DIR)/dragon.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/dragon.d:
+$(O_IMAGES_DIR)/dragon.o: $(C_IMAGES_DIR)/dragon.c $(O_IMAGES_DIR)/dragon.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/dragon.s
+endif
+#
+$(C_IMAGES_DIR)/microwin.c: $(IMAGES_DEMOS_DIR)/microwin.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/microwin.d:
+$(O_IMAGES_DIR)/microwin.o: $(C_IMAGES_DIR)/microwin.c $(O_IMAGES_DIR)/microwin.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/microwin.s
+endif
+#
+$(C_IMAGES_DIR)/penguin.c: $(IMAGES_DEMOS_DIR)/penguin.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/penguin.d:
+$(O_IMAGES_DIR)/penguin.o: $(C_IMAGES_DIR)/penguin.c $(O_IMAGES_DIR)/penguin.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/penguin.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/minebomb.c: $(IMAGES_DEMOS_DIR)/mwmine/minebomb.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/minebomb.d:
+$(O_IMAGES_DIR)/mwmine/minebomb.o: $(C_IMAGES_DIR)/mwmine/minebomb.c $(O_IMAGES_DIR)/mwmine/minebomb.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/minebomb.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/mineflag.c: $(IMAGES_DEMOS_DIR)/mwmine/mineflag.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/mineflag.d:
+$(O_IMAGES_DIR)/mwmine/mineflag.o: $(C_IMAGES_DIR)/mwmine/mineflag.c $(O_IMAGES_DIR)/mwmine/mineflag.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/mineflag.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/minedone.c: $(IMAGES_DEMOS_DIR)/mwmine/minedone.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/minedone.d:
+$(O_IMAGES_DIR)/mwmine/minedone.o: $(C_IMAGES_DIR)/mwmine/minedone.c $(O_IMAGES_DIR)/mwmine/minedone.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/minedone.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/mineface.c: $(IMAGES_DEMOS_DIR)/mwmine/mineface.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/mineface.d:
+$(O_IMAGES_DIR)/mwmine/mineface.o: $(C_IMAGES_DIR)/mwmine/mineface.c $(O_IMAGES_DIR)/mwmine/mineface.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/mineface.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/minefacelost.c: $(IMAGES_DEMOS_DIR)/mwmine/minefacelost.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/minefacelost.d:
+$(O_IMAGES_DIR)/mwmine/minefacelost.o: $(C_IMAGES_DIR)/mwmine/minefacelost.c $(O_IMAGES_DIR)/mwmine/minefacelost.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/minefacelost.s
+endif
+#
+$(C_IMAGES_DIR)/mwmine/minehitfalse.c: $(IMAGES_DEMOS_DIR)/mwmine/minehitfalse.bmp
+	$(CONVBMP) -o $@ $<
+$(O_IMAGES_DIR)/mwmine/minehitfalse.d:
+$(O_IMAGES_DIR)/mwmine/minehitfalse.o: $(C_IMAGES_DIR)/mwmine/minehitfalse.c $(O_IMAGES_DIR)/mwmine/minehitfalse.d $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_IMAGES_DIR)/mwmine/minehitfalse.s
+endif

@@ -1,4 +1,13 @@
-!ajaguar/
-ajaguar/*
-!ajaguar/README.ajaguar
-vs2017/
+/ajaguar/demos/mwin/Debug/
+/ajaguar/demos/mwin/Profile/
+/ajaguar/demos/mwin/Release/
+/ajaguar/demos/Runtime/LT_BOX.RGB
+/ajaguar/Docs/
+/ajaguar/lib/
+/ajaguar/Build.bat
+/ajaguar/demos.sln
+/ajaguar/demos_*.*
+/ajaguar/gccfilt.pl
+/ajaguar/lib.*
+/ajaguar/microwindows.sln
+/vs2017/

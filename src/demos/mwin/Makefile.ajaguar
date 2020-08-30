@@ -1,0 +1,312 @@
+# demos mwin objects list
+#
+ObjDEMOS	=	$(O_DEMOS_DIR)/mwbrush.o \
+				$(O_DEMOS_DIR)/mwcontrols.o \
+				$(O_DEMOS_DIR)/mwdemo.o \
+				$(O_DEMOS_DIR)/mwdemo2.o \
+				$(O_DEMOS_DIR)/mwdemoalpha.o \
+				$(O_DEMOS_DIR)/mwdialog.o \
+				$(O_DEMOS_DIR)/mwdraw.o \
+				$(O_DEMOS_DIR)/mwdvetest.o \
+				$(O_DEMOS_DIR)/mwhello.o \
+				$(O_DEMOS_DIR)/mwlistcombo.o \
+				$(O_DEMOS_DIR)/mwmenu.o \
+				$(O_DEMOS_DIR)/mwmine.o \
+				$(O_DEMOS_DIR)/mwmsgbox.o \
+				$(O_DEMOS_DIR)/mwpenstyles.o \
+				$(O_DEMOS_DIR)/mwprogbar.o \
+				$(O_DEMOS_DIR)/mwsimple.o \
+				$(O_DEMOS_DIR)/mwstatictext.o \
+				$(O_DEMOS_DIR)/mwstretch.o \
+				$(O_DEMOS_DIR)/mwterm.o \
+				$(O_DEMOS_DIR)/mwtest.o
+#$(O_DEMOS_DIR)/mwapp.o
+#$(O_DEMOS_DIR)/mwopenfile.o
+#
+ObjDEMOS_d	=	$(O_DEMOS_DIR)/mwbrush.d \
+				$(O_DEMOS_DIR)/mwcontrols.d \
+				$(O_DEMOS_DIR)/mwdemo.d \
+				$(O_DEMOS_DIR)/mwdemo2.d \
+				$(O_DEMOS_DIR)/mwdemoalpha.d \
+				$(O_DEMOS_DIR)/mwdialog.d \
+				$(O_DEMOS_DIR)/mwdraw.d \
+				$(O_DEMOS_DIR)/mwdvetest.d \
+				$(O_DEMOS_DIR)/mwhello.d \
+				$(O_DEMOS_DIR)/mwlistcombo.d \
+				$(O_DEMOS_DIR)/mwmenu.d \
+				$(O_DEMOS_DIR)/mwmine.d \
+				$(O_DEMOS_DIR)/mwmsgbox.d \
+				$(O_DEMOS_DIR)/mwpenstyles.d \
+				$(O_DEMOS_DIR)/mwprogbar.d \
+				$(O_DEMOS_DIR)/mwsimple.d \
+				$(O_DEMOS_DIR)/mwstatictext.d \
+				$(O_DEMOS_DIR)/mwstretch.d \
+				$(O_DEMOS_DIR)/mwterm.d \
+				$(O_DEMOS_DIR)/mwtest.d
+#$(O_DEMOS_DIR)/mwapp.d
+#$(O_DEMOS_DIR)/mwopenfile.d
+
+				
+# All demos mwin executables list
+#
+ExeDEMOS	=	$(EXE_DIR)/mwbrush_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwcontrols_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdemo_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdemo2_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdemoalpha_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdialog_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdraw_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwhello_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwlistcombo_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwmenu_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwmine_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwmsgbox_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwpenstyles_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwprogbar_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwsimple_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwstatictext_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwstretch_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwtest_$(env)_$(COMPILER_SELECT).$(ALNExt) \
+				$(EXE_DIR)/mwdvetest_$(env)_$(COMPILER_SELECT).$(ALNExt)
+#$(EXE_DIR)/mwterm_$(env)_$(COMPILER_SELECT).$(ALNExt)
+#$(EXE_DIR)/mwapp_$(env)_$(COMPILER_SELECT).$(ALNExt)
+#$(EXE_DIR)/mwopenfile_$(env)_$(COMPILER_SELECT).$(ALNExt)
+#
+# Specific demo mwin executable list
+ExeDEMO	=	$(EXE_DIR)/$(EXE_FILENAME)
+
+# demos mwin link
+#
+link_demos:	$(ExeDEMOS)
+#
+# demos mwin link
+link_demo:	$(ExeDEMO)
+#
+$(EXE_DIR)/mwapp_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwapp.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwbrush_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwbrush.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwcontrols_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwcontrols.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdemo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdemo2_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo2.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdemoalpha_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemoalpha.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdialog_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdialog.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdraw_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdraw.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwdvetest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdvetest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwhello_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwhello.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwlistcombo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwlistcombo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwmenu_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmenu.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwmine_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmine.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwmsgbox_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmsgbox.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwopenfile_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwopenfile.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwpenstyles_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwpenstyles.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwprogbar_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwprogbar.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwsimple_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwsimple.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwstatictext_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstatictext.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwstretch_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstretch.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwterm_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwterm.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+#
+$(EXE_DIR)/mwtest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwtest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+
+
+# demos mwin compilation
+#
+compile_demos:	$(ObjDEMOS)
+#
+# Include the dependence file
+include $(ObjDEMOS_d)
+#
+$(O_DEMOS_DIR)/mwapp.d:
+$(O_DEMOS_DIR)/mwapp.o: $(C_DEMOS_DIR)/mwapp.c $(O_DEMOS_DIR)/mwapp.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwapp.s
+endif
+#
+$(O_DEMOS_DIR)/mwbrush.d:
+$(O_DEMOS_DIR)/mwbrush.o: $(C_DEMOS_DIR)/mwbrush.c $(O_DEMOS_DIR)/mwbrush.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwbrush.s
+endif
+#
+$(O_DEMOS_DIR)/mwcontrols.d:
+$(O_DEMOS_DIR)/mwcontrols.o: $(C_DEMOS_DIR)/mwcontrols.c $(O_DEMOS_DIR)/mwcontrols.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwcontrols.s
+endif
+#
+$(O_DEMOS_DIR)/mwdemo.d:
+$(O_DEMOS_DIR)/mwdemo.o: $(C_DEMOS_DIR)/mwdemo.c $(O_DEMOS_DIR)/mwdemo.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(objcopy) --rename-section .data=.mwdemosmwindata $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo.s
+endif
+#
+$(O_DEMOS_DIR)/mwdemo2.d:
+$(O_DEMOS_DIR)/mwdemo2.o: $(C_DEMOS_DIR)/mwdemo2.c $(O_DEMOS_DIR)/mwdemo2.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo2.s
+endif
+#
+$(O_DEMOS_DIR)/mwdemoalpha.d:
+$(O_DEMOS_DIR)/mwdemoalpha.o: $(C_DEMOS_DIR)/mwdemoalpha.c $(O_DEMOS_DIR)/mwdemoalpha.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemoalpha.s
+endif
+#
+$(O_DEMOS_DIR)/mwdialog.d:
+$(O_DEMOS_DIR)/mwdialog.o: $(C_DEMOS_DIR)/mwdialog.c $(O_DEMOS_DIR)/mwdialog.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdialog.s
+endif
+#
+$(O_DEMOS_DIR)/mwdraw.d:
+$(O_DEMOS_DIR)/mwdraw.o: $(C_DEMOS_DIR)/mwdraw.c $(O_DEMOS_DIR)/mwdraw.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdraw.s
+endif
+#
+$(O_DEMOS_DIR)/mwdvetest.d:
+$(O_DEMOS_DIR)/mwdvetest.o: $(C_DEMOS_DIR)/mwdvetest.c $(O_DEMOS_DIR)/mwdvetest.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(WARP_INC) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdvetest.s
+endif
+#
+$(O_DEMOS_DIR)/mwhello.d:
+$(O_DEMOS_DIR)/mwhello.o: $(C_DEMOS_DIR)/mwhello.c $(O_DEMOS_DIR)/mwhello.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwhello.s
+endif
+#
+$(O_DEMOS_DIR)/mwlistcombo.d:
+$(O_DEMOS_DIR)/mwlistcombo.o: $(C_DEMOS_DIR)/mwlistcombo.c $(O_DEMOS_DIR)/mwlistcombo.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwlistcombo.s
+endif
+#
+$(O_DEMOS_DIR)/mwmenu.d:
+$(O_DEMOS_DIR)/mwmenu.o: $(C_DEMOS_DIR)/mwmenu.c $(O_DEMOS_DIR)/mwmenu.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmenu.s
+endif
+#
+$(O_DEMOS_DIR)/mwmine.d:
+$(O_DEMOS_DIR)/mwmine.o: $(C_DEMOS_DIR)/mwmine.c $(O_DEMOS_DIR)/mwmine.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmine.s
+endif
+#
+$(O_DEMOS_DIR)/mwmsgbox.d:
+$(O_DEMOS_DIR)/mwmsgbox.o: $(C_DEMOS_DIR)/mwmsgbox.c $(O_DEMOS_DIR)/mwmsgbox.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmsgbox.s
+endif
+#
+$(O_DEMOS_DIR)/mwopenfile.d:
+$(O_DEMOS_DIR)/mwopenfile.o: $(C_DEMOS_DIR)/mwopenfile.c $(O_DEMOS_DIR)/mwopenfile.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwopenfile.s
+endif
+#
+$(O_DEMOS_DIR)/mwpenstyles.d:
+$(O_DEMOS_DIR)/mwpenstyles.o: $(C_DEMOS_DIR)/mwpenstyles.c $(O_DEMOS_DIR)/mwpenstyles.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwpenstyles.s
+endif
+#
+$(O_DEMOS_DIR)/mwprogbar.d:
+$(O_DEMOS_DIR)/mwprogbar.o: $(C_DEMOS_DIR)/mwprogbar.c $(O_DEMOS_DIR)/mwprogbar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwprogbar.s
+endif
+#
+$(O_DEMOS_DIR)/mwsimple.d:
+$(O_DEMOS_DIR)/mwsimple.o: $(C_DEMOS_DIR)/mwsimple.c $(O_DEMOS_DIR)/mwsimple.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwsimple.s
+endif
+#
+$(O_DEMOS_DIR)/mwstatictext.d:
+$(O_DEMOS_DIR)/mwstatictext.o: $(C_DEMOS_DIR)/mwstatictext.c $(O_DEMOS_DIR)/mwstatictext.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstatictext.s
+endif
+#
+$(O_DEMOS_DIR)/mwstretch.d:
+$(O_DEMOS_DIR)/mwstretch.o: $(C_DEMOS_DIR)/mwstretch.c $(O_DEMOS_DIR)/mwstretch.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstretch.s
+endif
+#
+$(O_DEMOS_DIR)/mwterm.d:
+$(O_DEMOS_DIR)/mwterm.o: $(C_DEMOS_DIR)/mwterm.c $(O_DEMOS_DIR)/mwterm.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwterm.s
+endif
+#
+$(O_DEMOS_DIR)/mwtest.d:
+$(O_DEMOS_DIR)/mwtest.o: $(C_DEMOS_DIR)/mwtest.c $(O_DEMOS_DIR)/mwtest.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwtest.s
+endif

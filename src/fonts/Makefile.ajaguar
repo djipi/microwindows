@@ -1,0 +1,56 @@
+# fonts objects list
+#
+ObjFONTS	=	$(O_FONTS_DIR)/X6x13.o \
+				$(O_FONTS_DIR)/winFreeSansSerif11x13.o
+#				$(O_FONTS_DIR)/winFreeSystem14x16.o
+#				$(O_FONTS_DIR)/rom8x16.o
+#				$(O_FONTS_DIR)/rom8x8.o
+#
+ObjFONTS_d	=	$(O_FONTS_DIR)/X6x13.d \
+				$(O_FONTS_DIR)/winFreeSansSerif11x13.d
+#				$(O_FONTS_DIR)/winFreeSystem14x16.d \				
+#				$(O_FONTS_DIR)/rom8x16.d \
+#				$(O_FONTS_DIR)/rom8x8.d
+	
+
+# fonts
+#
+compile_fonts:	$(ObjFONTS)
+#
+# Include the dependence file
+include $(ObjFONTS_d)
+#
+$(O_FONTS_DIR)/X6x13.d:
+$(O_FONTS_DIR)/X6x13.o: $(C_FONTS_DIR)/X6x13.c $(O_FONTS_DIR)/X6x13.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_FONTS_DIR)/Makefile.ajaguar
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_FONTS_DIR)/X6x13.s
+endif
+#
+$(O_FONTS_DIR)/winFreeSystem14x16.d:
+$(O_FONTS_DIR)/winFreeSystem14x16.o: $(C_FONTS_DIR)/winFreeSystem14x16.c $(O_FONTS_DIR)/winFreeSystem14x16.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_FONTS_DIR)/Makefile.ajaguar
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_FONTS_DIR)/winFreeSystem14x16.s
+endif
+#
+$(O_FONTS_DIR)/winFreeSansSerif11x13.d:
+$(O_FONTS_DIR)/winFreeSansSerif11x13.o: $(C_FONTS_DIR)/winFreeSansSerif11x13.c $(O_FONTS_DIR)/winFreeSansSerif11x13.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_FONTS_DIR)/Makefile.ajaguar
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_FONTS_DIR)/winFreeSansSerif11x13.s
+endif
+#
+$(O_FONTS_DIR)/rom8x16.d:
+$(O_FONTS_DIR)/rom8x16.o: $(C_FONTS_DIR)/rom8x16.c $(O_FONTS_DIR)/rom8x16.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_FONTS_DIR)/Makefile.ajaguar
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_FONTS_DIR)/rom8x16.s
+endif
+#
+$(O_FONTS_DIR)/rom8x8.d:
+$(O_FONTS_DIR)/rom8x8.o: $(C_FONTS_DIR)/rom8x8.c $(O_FONTS_DIR)/rom8x8.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_FONTS_DIR)/Makefile.ajaguar
+	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_FONTS_DIR)/rom8x8.s
+endif
