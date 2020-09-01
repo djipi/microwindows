@@ -59,22 +59,22 @@ ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin16.d
 ##ObjDRIVERS += $(O_DRIVERS_DIR)/fblin16.o
 ##ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin16.d
 #endif
-#ifeq ($(SCREEN_DEPTH), 8)
+ifeq ($(SCREEN_DEPTH), 8)
 ObjDRIVERS += $(O_DRIVERS_DIR)/fblin8.o
 ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin8.d
-#endif
-#ifeq ($(SCREEN_DEPTH), 4)
+endif
+ifeq ($(SCREEN_DEPTH), 4)
 ObjDRIVERS += $(O_DRIVERS_DIR)/fblin4.o
 ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin4.d
-#endif
-#ifeq ($(SCREEN_DEPTH), 2)
+endif
+ifeq ($(SCREEN_DEPTH), 2)
 ObjDRIVERS += $(O_DRIVERS_DIR)/fblin2.o
 ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin2.d
-#endif
-#ifeq ($(SCREEN_DEPTH), 1)
+endif
+ifeq ($(SCREEN_DEPTH), 1)
 ObjDRIVERS += $(O_DRIVERS_DIR)/fblin1.o
 ObjDRIVERS_d += $(O_DRIVERS_DIR)/fblin1.d
-#endif
+endif
 #
 # Portrait detection
 #
