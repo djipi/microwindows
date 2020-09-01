@@ -36,24 +36,32 @@ gen_initpsd(PSD psd, int pixtype, MWCOORD xres, MWCOORD yres, int flags)
 
 	/* use pixel format to set bpp*/
 	switch (psd->pixtype) {
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLORARGB) || (MWPIXEL_FORMAT == MWPF_TRUECOLORABGR)
 	case MWPF_TRUECOLORARGB:
 	case MWPF_TRUECOLORABGR:
 	default:
 		psd->bpp = 32;
 		break;
+#endif
 
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLORRGB)
 	case MWPF_TRUECOLORRGB:
 		psd->bpp = 24;
 		break;
+#endif
 
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR565) || (MWPIXEL_FORMAT == MWPF_TRUECOLOR555)
 	case MWPF_TRUECOLOR565:
 	case MWPF_TRUECOLOR555:
 		psd->bpp = 16;
 		break;
+#endif
 
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR332)
 	case MWPF_TRUECOLOR332:
 		psd->bpp = 8;
 		break;
+#endif
 
 #if MWPIXEL_FORMAT == MWPF_PALETTE
 	case MWPF_PALETTE:
@@ -133,18 +141,24 @@ select_fb_subdriver(PSD psd)
 			pdriver = fblinear8;
 			break;
 #endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR555) || (MWPIXEL_FORMAT == MWPF_TRUECOLOR565)
 		case 16:
 			pdriver = fblinear16;
 			break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLORRGB)
 		case 24:
 			pdriver = fblinear24;
 			break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLORABGR) || (MWPIXEL_FORMAT == MWPF_TRUECOLORARGB)
 		case 32:
 			if (psd->data_format == MWIF_RGBA8888)	/* RGBA pixmaps*/
 				pdriver = fblinear32rgba;
 			else
 				pdriver = fblinear32bgra;
 			break;
+#endif
 		}
 	}
 #endif
@@ -169,30 +183,47 @@ set_data_formatex(int pixtype, int bpp)
 	int data_format = 0;
 
 	switch(pixtype) {
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR8888)
 	case MWPF_TRUECOLOR8888:
 		data_format = MWIF_BGRA8888;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLORABGR)
 	case MWPF_TRUECOLORABGR:
 		data_format = MWIF_RGBA8888;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR888)
 	case MWPF_TRUECOLOR888:
 		data_format = MWIF_BGR888;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR565)
 	case MWPF_TRUECOLOR565:
 		data_format = MWIF_RGB565;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR555)
 	case MWPF_TRUECOLOR555:
 		data_format = MWIF_RGB555;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR1555)
 	case MWPF_TRUECOLOR1555:
 	        data_format = MWIF_RGB1555;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR332)
 	case MWPF_TRUECOLOR332:
 		data_format = MWIF_RGB332;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_TRUECOLOR233)
 	case MWPF_TRUECOLOR233:
 		data_format = MWIF_BGR233;
 		break;
+#endif
+#if (MWPIXEL_FORMAT == MWPF_PALETTE)
 	case MWPF_PALETTE:
 		switch (bpp) {
 #ifndef NOSTDPAL8
@@ -217,6 +248,7 @@ set_data_formatex(int pixtype, int bpp)
 #endif
 		}
 		break;
+#endif
 	}
 
 	return data_format;
