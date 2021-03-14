@@ -19,12 +19,15 @@ extern "C" {
 #include "mwtypes.h"
 #include "mwconfig.h"
 #include "windef.h"
+#include "winbase.h"
+#include "wincon.h"
 #include "wingdi.h"
 #include "winfont.h"
 #include "winkbd.h"
 #include "winuser.h"	/* now includes winctl.h for resource compiler*/
 #include "winres.h"
 #include "windlg.h"
+#include "fileapi.h"
 
 /* startup routines*/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,

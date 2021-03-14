@@ -431,6 +431,75 @@ typedef struct _RGNDATA {
     char            Buffer[1];
 } RGNDATA, *PRGNDATA, *NPRGNDATA, *LPRGNDATA;
 
+typedef struct _POINTFLOAT {
+	FLOAT x;
+	FLOAT y;
+} POINTFLOAT,*PPOINTFLOAT;
+
+typedef struct _GLYPHMETRICSFLOAT {
+	FLOAT gmfBlackBoxX;
+	FLOAT gmfBlackBoxY;
+	POINTFLOAT gmfptGlyphOrigin;
+	FLOAT gmfCellIncX;
+	FLOAT gmfCellIncY;
+} GLYPHMETRICSFLOAT,*PGLYPHMETRICSFLOAT,*LPGLYPHMETRICSFLOAT;
+
+typedef struct tagLAYERPLANEDESCRIPTOR {
+	WORD nSize;
+	WORD nVersion;
+	DWORD dwFlags;
+	BYTE iPixelType;
+	BYTE cColorBits;
+	BYTE cRedBits;
+	BYTE cRedShift;
+	BYTE cGreenBits;
+	BYTE cGreenShift;
+	BYTE cBlueBits;
+	BYTE cBlueShift;
+	BYTE cAlphaBits;
+	BYTE cAlphaShift;
+	BYTE cAccumBits;
+	BYTE cAccumRedBits;
+	BYTE cAccumGreenBits;
+	BYTE cAccumBlueBits;
+	BYTE cAccumAlphaBits;
+	BYTE cDepthBits;
+	BYTE cStencilBits;
+	BYTE cAuxBuffers;
+	BYTE iLayerPlane;
+	BYTE bReserved;
+	COLORREF crTransparent;
+} LAYERPLANEDESCRIPTOR,*PLAYERPLANEDESCRIPTOR,*LPLAYERPLANEDESCRIPTOR;
+
+typedef struct tagPIXELFORMATDESCRIPTOR {
+	WORD nSize;
+	WORD nVersion;
+	DWORD dwFlags;
+	BYTE iPixelType;
+	BYTE cColorBits;
+	BYTE cRedBits;
+	BYTE cRedShift;
+	BYTE cGreenBits;
+	BYTE cGreenShift;
+	BYTE cBlueBits;
+	BYTE cBlueShift;
+	BYTE cAlphaBits;
+	BYTE cAlphaShift;
+	BYTE cAccumBits;
+	BYTE cAccumRedBits;
+	BYTE cAccumGreenBits;
+	BYTE cAccumBlueBits;
+	BYTE cAccumAlphaBits;
+	BYTE cDepthBits;
+	BYTE cStencilBits;
+	BYTE cAuxBuffers;
+	BYTE iLayerType;
+	BYTE bReserved;
+	DWORD dwLayerMask;
+	DWORD dwVisibleMask;
+	DWORD dwDamageMask;
+} PIXELFORMATDESCRIPTOR,*PPIXELFORMATDESCRIPTOR,*LPPIXELFORMATDESCRIPTOR;
+
 /* Region entry points*/
 INT  WINAPI OffsetRgn(HRGN hrgn, INT x, INT y );
 INT  WINAPI GetRgnBox(HRGN hrgn, LPRECT rect );
