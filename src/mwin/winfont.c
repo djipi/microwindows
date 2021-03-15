@@ -33,7 +33,7 @@ CreateFont(int nHeight, int nWidth, int nEscapement, int nOrientation,
 	lf.lfClipPrecision = fdwClipPrecision;
 	lf.lfQuality = fdwQuality;
 	lf.lfPitchAndFamily = fdwPitchAndFamily;
-	strncpy(lf.lfFaceName, lpszFace, sizeof(lf.lfFaceName) - 1);
+	strzcpy(lf.lfFaceName, lpszFace, sizeof(lf.lfFaceName));
 
 	return CreateFontIndirect(&lf);
 }
@@ -66,7 +66,7 @@ CreateFontIndirect(CONST LOGFONT *lplf)
 	mwlf.lfOutPrecision = lplf->lfOutPrecision;
 	mwlf.lfClipPrecision = lplf->lfClipPrecision;
 	mwlf.lfQuality = lplf->lfQuality;
-	strncpy(mwlf.lfFaceName, lplf->lfFaceName, sizeof(mwlf.lfFaceName));
+	strzcpy(mwlf.lfFaceName, lplf->lfFaceName, sizeof(mwlf.lfFaceName));
 
 	family = lplf->lfPitchAndFamily & 0xf0;
 	switch(family) {
@@ -300,7 +300,7 @@ EnumFonts(
 		GdGetFontInfo((PMWFONT) pf, &fi);
 		set_text_metrics(hdc, lptm, &fi);
 
-		strncpy(lf.lfFaceName, pf->name, sizeof(lf.lfFaceName) - 1);
+		strzcpy(lf.lfFaceName, pf->name, sizeof(lf.lfFaceName));
 		lf.lfHeight = fi.height;
 		lf.lfWidth = fi.widths['x'];
 		lf.lfWeight = FW_NORMAL;
@@ -317,7 +317,7 @@ EnumFonts(
 		GdGetFontList(&lst, &n);
 		memset(&lf, 0, sizeof(lf));
 		for (i = 0; i < n; i++) {
-			strncpy(lf.lfFaceName, lst[i]->mwname, sizeof(lf.lfFaceName));
+			strzcpy(lf.lfFaceName, lst[i]->mwname, sizeof(lf.lfFaceName));
 			p = strrchr(lf.lfFaceName, '.');
 			if (p != NULL && strcasecmp(p, ".ttf") == 0)
 				*p = 0;
