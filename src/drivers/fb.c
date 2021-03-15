@@ -93,7 +93,13 @@ gen_initpsd(PSD psd, int pixtype, MWCOORD xres, MWCOORD yres, int flags)
 	 * Allocate framebuffer if requested
 	 * psd->size is calculated by subdriver init
 	 */
+#if HAVE_BLITTER_SUPPORT
+#if AJAGUAR
+	if ((flags & PSF_ADDRMALLOC) && (psd->addr = ((unsigned long)malloc(psd->size) & ~7)) == NULL)
+#endif
+#else
 	if ((flags & PSF_ADDRMALLOC) && (psd->addr = malloc(psd->size)) == NULL)
+#endif
 		return 0;
 	return 1;		/* success*/
 }

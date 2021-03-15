@@ -289,8 +289,15 @@ GdCalcMemGCAlloc(PSD psd, int width, int height, int planes, int bpp,
 	/* right align pitch to DWORD boundary*/
 	pitch = (pitch + 3) & ~3;
 
+#if HAVE_BLITTER_SUPPORT
+#if AJAGUAR
+	*psize = (pitch * height) + 8;
+#endif
+#else
 	*psize = pitch * height;
+#endif
 	*ppitch = pitch;
+
 	return 1;
 }
 

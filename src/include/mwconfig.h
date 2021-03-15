@@ -112,6 +112,10 @@
 #define HAVE_FILEIO		0		/* =1 to include libc stdio and image reading routines*/
 #endif
 
+#ifndef HAVE_BLITTER_SUPPORT
+#define HAVE_BLITTER_SUPPORT	0	/* =1 for blitter support (system dependent) */
+#endif
+
 /* image reading support*/
 #ifndef HAVE_BMP_SUPPORT
 #define HAVE_BMP_SUPPORT		0	/* BMP image support*/
