@@ -365,9 +365,6 @@ endif
 ifeq ($(HAVE_FNT_SUPPORT), Y)
 CCDefine += -DHAVE_FNT_SUPPORT=1
 endif
-ifeq ($(HAVE_BLITTER_SUPPORT), Y)
-CCDefine += -DHAVE_BLITTER_SUPPORT=1
-endif
 #-D NO_LIBGCC_A -D INT_8_BITS -D _SUPPORT_ARGS -D_USE_STDINT 
 #SDK_INC = -IC:/SDK/Jaguar/jlibc-0.5.8/include
 #-I./src/OSJag -I./src/DirectJag
@@ -1077,7 +1074,6 @@ config_compiler:
 # Display configuration
 config_configuration:
 	$(info ----------------- Configuration)
-	$(info Blitter support : $(HAVE_BLITTER_SUPPORT))
 	$(info BMP format      : $(HAVE_BMP_SUPPORT))
 	$(info Clipping        : $(NOCLIPPING))
 	$(info Debug           : $(DEBUG))

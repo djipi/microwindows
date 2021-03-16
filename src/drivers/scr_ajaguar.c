@@ -149,11 +149,7 @@ static PSD AJAGUAR_open(PSD psd)
 #endif
 	{
 		/* framebuffer memory allocation */
-#if !HAVE_BLITTER_SUPPORT
 		if (!(psd->addr = malloc(psd->size)))
-#else
-		if (!(psd->addr = ((unsigned long)malloc(psd->size) & ~7)))
-#endif
 		{
 			return NULL;
 		}
@@ -267,17 +263,14 @@ static void AJAGUAR_update(PSD psd, MWCOORD destx, MWCOORD desty, MWCOORD width,
 #if 0
     static uint32_t counter;
 #endif
-#if !HAVE_BLITTER_SUPPORT
     unsigned char *addr;
 #ifdef SCREEN_AJAGUAR
 	unsigned char *jaddr;
 	int ly, lx;
 #endif
-#endif
 
     if ((psd->pixtype == MWPF_TRUECOLOR332) || (psd->pixtype == MWPF_PALETTE))
 	{
-#if !HAVE_BLITTER_SUPPORT
 		addr = psd->addr + desty * psd->pitch + destx;
 #ifdef SCREEN_AJAGUAR
 		jaddr = &ajag_screen[desty * psd->pitch + destx];
@@ -292,16 +285,6 @@ static void AJAGUAR_update(PSD psd, MWCOORD destx, MWCOORD desty, MWCOORD width,
 			addr += psd->xres - width;
 			jaddr += psd->xres - width;
 		}
-#endif
-#else
-		while (!(*B_CMD & 1));
-		*A1_BASE = &ajag_screen;											// [(desty * psd->pitch) + destx];
-		*A2_BASE = psd->addr;												// +((desty * psd->pitch) + destx);
-		*A1_PIXEL = *A2_PIXEL = (desty << 16) | destx;
-		*A1_FLAGS = *A2_FLAGS = (PIXEL8 | XADDPIX | WID320 | PITCH1);
-		//*A1_STEP = *A2_STEP = (1 << 16) | (short int)-320;
-		*B_COUNT = (height << 16) | width;
-		*B_CMD = LFU_REPLACE | SRCEN;
 #endif
 	}
 #if 0

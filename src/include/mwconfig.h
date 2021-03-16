@@ -112,6 +112,10 @@
 #define HAVE_FILEIO		0		/* =1 to include libc stdio and image reading routines*/
 #endif
 
+#ifndef EMBEDDED
+#define	EMBEDDED		0		/* =1 for EMBEDDED system (not used yet)*/
+#endif
+
 /* image reading support*/
 #ifndef HAVE_BMP_SUPPORT
 #define HAVE_BMP_SUPPORT		0	/* BMP image support*/
