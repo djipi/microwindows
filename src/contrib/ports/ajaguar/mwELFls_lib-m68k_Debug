@@ -98,6 +98,10 @@ SECTIONS
 	{
 		*(.debug_pubnames);											/* Lookup table for global objects and functions */
 	} >dbg
+	.debug_pubtypes 0:
+	{
+		*(.debug_pubtypes);
+	} >dbg
 
 	/* DWARF 2 */
 	.debug_info 0:
