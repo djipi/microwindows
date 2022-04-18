@@ -26,6 +26,9 @@ struct timezone {
 
 int gettimeofday(struct timeval *tv, struct timezone *tz);
 
+#elif defined(AJAGUAR)
+#include <time.h>
+
 #else	/* UNIX | DOS_DJGPP*/
 #include <sys/time.h>
 #endif

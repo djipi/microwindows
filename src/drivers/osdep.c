@@ -95,7 +95,7 @@ GdGetTickCount(void)
 	}
 #if AJAGUAR
 //#pragma message("GdGetTickCout - not implemented for Atari Jaguar platform")
-	return ajag_mstimer;
+	return (ajag_mstimer / 25);
 #elif UNIX | EMSCRIPTEN | _MSC_VER
 	{
 	struct timeval t;
@@ -244,5 +244,10 @@ gettimeofday(struct timeval *tv, struct timezone *tz)
 // The timeGetTime function retrieves the system time, in milliseconds. The system time is the time elapsed since Windows was started.
 uint32_t timeGetTime(void)
 {
-	return GdGetTickCount();
+	//return GdGetTickCount();
+#if AJAGUAR
+	return ajag_mstimer;
+#else
+#pragma message("timeGetTime - not implemented")
+#endif
 }
