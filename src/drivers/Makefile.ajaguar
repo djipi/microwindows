@@ -85,190 +85,217 @@ include $(ObjDRIVERS_d)
 #
 $(O_DRIVERS_DIR)/vtswitch.d:
 $(O_DRIVERS_DIR)/vtswitch.o: $(C_DRIVERS_DIR)/vtswitch.c $(O_DRIVERS_DIR)/vtswitch.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/vtswitch.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/vtswitch.s
 endif
 #
 $(O_DRIVERS_DIR)/vncserver.d:
 $(O_DRIVERS_DIR)/vncserver.o: $(C_DRIVERS_DIR)/vncserver.c $(O_DRIVERS_DIR)/vncserver.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/vncserver.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/vncserver.s
 endif
 #
 $(O_DRIVERS_DIR)/scr_ajaguar.d:
 $(O_DRIVERS_DIR)/scr_ajaguar.o: $(C_DRIVERS_DIR)/scr_ajaguar.c $(O_DRIVERS_DIR)/scr_ajaguar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/scr_ajaguar.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/scr_ajaguar.s
 endif
 #
 $(O_DRIVERS_DIR)/scr_fbe.d:
 $(O_DRIVERS_DIR)/scr_fbe.o: $(C_DRIVERS_DIR)/scr_fbe.c $(O_DRIVERS_DIR)/scr_fbe.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/scr_fbe.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/scr_fbe.s
 endif
 #
 $(O_DRIVERS_DIR)/rasterops.d:
 $(O_DRIVERS_DIR)/rasterops.o: $(C_DRIVERS_DIR)/rasterops.c $(O_DRIVERS_DIR)/rasterops.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/rasterops.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/rasterops.s
 endif
 #
 $(O_DRIVERS_DIR)/osdep.d:
 $(O_DRIVERS_DIR)/osdep.o: $(C_DRIVERS_DIR)/osdep.c $(O_DRIVERS_DIR)/osdep.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/osdep.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/osdep.s
 endif
 #
 $(O_DRIVERS_DIR)/nofont.d:
 $(O_DRIVERS_DIR)/nofont.o: $(C_DRIVERS_DIR)/nofont.c $(O_DRIVERS_DIR)/nofont.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/nofont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/nofont.s
 endif
 #
 $(O_DRIVERS_DIR)/kbd_ajaguar.d:
 $(O_DRIVERS_DIR)/kbd_ajaguar.o: $(C_DRIVERS_DIR)/kbd_ajaguar.c $(O_DRIVERS_DIR)/kbd_ajaguar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/kbd_ajaguar.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/kbd_ajaguar.s
 endif
 #
 $(O_DRIVERS_DIR)/mou_ajaguar.d:
 $(O_DRIVERS_DIR)/mou_ajaguar.o: $(C_DRIVERS_DIR)/mou_ajaguar.c $(O_DRIVERS_DIR)/mou_ajaguar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/mou_ajaguar.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/mou_ajaguar.s
 endif
 #
 $(O_DRIVERS_DIR)/hbf.d:
 $(O_DRIVERS_DIR)/hbf.o: $(C_DRIVERS_DIR)/hbf.c $(O_DRIVERS_DIR)/hbf.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/hbf.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/hbf.s
 endif
 #
 $(O_DRIVERS_DIR)/genmem.d:
 $(O_DRIVERS_DIR)/genmem.o: $(C_DRIVERS_DIR)/genmem.c $(O_DRIVERS_DIR)/genmem.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/genmem.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/genmem.s
 endif
 #
 $(O_DRIVERS_DIR)/genfont.d:
 $(O_DRIVERS_DIR)/genfont.o: $(C_DRIVERS_DIR)/genfont.c $(O_DRIVERS_DIR)/genfont.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
-	$(objcopy) --rename-section .data=.mwdriversdata $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(Q)$(objcopy) --rename-section .data=.mwdriversdata $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/genfont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/genfont.s
 endif
 #
 $(O_DRIVERS_DIR)/fbportrait_right.d:
 $(O_DRIVERS_DIR)/fbportrait_right.o: $(C_DRIVERS_DIR)/fbportrait_right.c $(O_DRIVERS_DIR)/fbportrait_right.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_right.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_right.s
 endif
 #
 $(O_DRIVERS_DIR)/fbportrait_left.d:
 $(O_DRIVERS_DIR)/fbportrait_left.o: $(C_DRIVERS_DIR)/fbportrait_left.c $(O_DRIVERS_DIR)/fbportrait_left.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_left.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_left.s
 endif
 #
 $(O_DRIVERS_DIR)/fbportrait_down.d:
 $(O_DRIVERS_DIR)/fbportrait_down.o: $(C_DRIVERS_DIR)/fbportrait_down.c $(O_DRIVERS_DIR)/fbportrait_down.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_down.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fbportrait_down.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin32.d:
 $(O_DRIVERS_DIR)/fblin32.o: $(C_DRIVERS_DIR)/fblin32.c $(O_DRIVERS_DIR)/fblin32.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin32.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin32.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin24.d:
 $(O_DRIVERS_DIR)/fblin24.o: $(C_DRIVERS_DIR)/fblin24.c $(O_DRIVERS_DIR)/fblin24.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin24.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin24.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin16.d:
 $(O_DRIVERS_DIR)/fblin16.o: $(C_DRIVERS_DIR)/fblin16.c $(O_DRIVERS_DIR)/fblin16.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin16.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin16.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin8.d:
 $(O_DRIVERS_DIR)/fblin8.o: $(C_DRIVERS_DIR)/fblin8.c $(O_DRIVERS_DIR)/fblin8.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin8.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin8.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin4rev.d:
 $(O_DRIVERS_DIR)/fblin4rev.o: $(C_DRIVERS_DIR)/fblin4rev.c $(O_DRIVERS_DIR)/fblin4rev.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin4rev.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin4rev.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin4.d:
 $(O_DRIVERS_DIR)/fblin4.o: $(C_DRIVERS_DIR)/fblin4.c $(O_DRIVERS_DIR)/fblin4.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin4.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin4.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin2rev.d:
 $(O_DRIVERS_DIR)/fblin2rev.o: $(C_DRIVERS_DIR)/fblin2rev.c $(O_DRIVERS_DIR)/fblin2rev.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin2rev.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin2rev.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin2.d:
 $(O_DRIVERS_DIR)/fblin2.o: $(C_DRIVERS_DIR)/fblin2.c $(O_DRIVERS_DIR)/fblin2.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin2.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin1rev.d:
 $(O_DRIVERS_DIR)/fblin1rev.o: $(C_DRIVERS_DIR)/fblin1rev.c $(O_DRIVERS_DIR)/fblin1rev.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin1rev.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin1rev.s
 endif
 #
 $(O_DRIVERS_DIR)/fblin1.d:
 $(O_DRIVERS_DIR)/fblin1.o: $(C_DRIVERS_DIR)/fblin1.c $(O_DRIVERS_DIR)/fblin1.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin1.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fblin1.s
 endif
 #
 $(O_DRIVERS_DIR)/fb.d:
 $(O_DRIVERS_DIR)/fb.o: $(C_DRIVERS_DIR)/fb.c $(O_DRIVERS_DIR)/fb.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fb.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/fb.s
 endif
 #
 $(O_DRIVERS_DIR)/copyframebuffer.d:
 $(O_DRIVERS_DIR)/copyframebuffer.o: $(C_DRIVERS_DIR)/copyframebuffer.c $(O_DRIVERS_DIR)/copyframebuffer.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_DRIVERS_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the drivers library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/copyframebuffer.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DRIVERS_DIR)/copyframebuffer.s
 endif

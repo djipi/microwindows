@@ -134,294 +134,335 @@ include $(ObjENGINE_d)
 #
 $(O_ENGINE_DIR)/selfont.d:
 $(O_ENGINE_DIR)/selfont.o: $(C_ENGINE_DIR)/selfont.c $(O_ENGINE_DIR)/selfont.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/selfont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/selfont.s
 endif
 #
 $(O_ENGINE_DIR)/image_xpm.d:
 $(O_ENGINE_DIR)/image_xpm.o: $(C_ENGINE_DIR)/image_xpm.c $(O_ENGINE_DIR)/image_xpm.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_xpm.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_xpm.s
 endif
 #
 $(O_ENGINE_DIR)/image_tiff.d:
 $(O_ENGINE_DIR)/image_tiff.o: $(C_ENGINE_DIR)/image_tiff.c $(O_ENGINE_DIR)/image_tiff.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_tiff.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_tiff.s
 endif
 #
 $(O_ENGINE_DIR)/image_pnm.d:
 $(O_ENGINE_DIR)/image_pnm.o: $(C_ENGINE_DIR)/image_pnm.c $(O_ENGINE_DIR)/image_pnm.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_pnm.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_pnm.s
 endif
 #
 $(O_ENGINE_DIR)/image_png.d:
 $(O_ENGINE_DIR)/image_png.o: $(C_ENGINE_DIR)/image_png.c $(O_ENGINE_DIR)/image_png.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_png.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_png.s
 endif
 #
 $(O_ENGINE_DIR)/image_jpeg.d:
 $(O_ENGINE_DIR)/image_jpeg.o: $(C_ENGINE_DIR)/image_jpeg.c $(O_ENGINE_DIR)/image_jpeg.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_jpeg.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_jpeg.s
 endif
 #
 $(O_ENGINE_DIR)/image_gif.d:
 $(O_ENGINE_DIR)/image_gif.o: $(C_ENGINE_DIR)/image_gif.c $(O_ENGINE_DIR)/image_gif.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_gif.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_gif.s
 endif
 #
 $(O_ENGINE_DIR)/image_bmp.d:
 $(O_ENGINE_DIR)/image_bmp.o: $(C_ENGINE_DIR)/image_bmp.c $(O_ENGINE_DIR)/image_bmp.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_bmp.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/image_bmp.s
 endif
 #
 $(O_ENGINE_DIR)/font_t1lib.d:
 $(O_ENGINE_DIR)/font_t1lib.o: $(C_ENGINE_DIR)/font_t1lib.c $(O_ENGINE_DIR)/font_t1lib.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_t1lib.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_t1lib.s
 endif
 #
 $(O_ENGINE_DIR)/font_pcf.d:
 $(O_ENGINE_DIR)/font_pcf.o: $(C_ENGINE_DIR)/font_pcf.c $(O_ENGINE_DIR)/font_pcf.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_pcf.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_pcf.s
 endif
 #
 $(O_ENGINE_DIR)/font_hzk.d:
 $(O_ENGINE_DIR)/font_hzk.o: $(C_ENGINE_DIR)/font_hzk.c $(O_ENGINE_DIR)/font_hzk.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_hzk.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_hzk.s
 endif
 #
 $(O_ENGINE_DIR)/font_hbf.d:
 $(O_ENGINE_DIR)/font_hbf.o: $(C_ENGINE_DIR)/font_hbf.c $(O_ENGINE_DIR)/font_hbf.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_hbf.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_hbf.s
 endif
 #
 $(O_ENGINE_DIR)/font_freetype2.d:
 $(O_ENGINE_DIR)/font_freetype2.o: $(C_ENGINE_DIR)/font_freetype2.c $(O_ENGINE_DIR)/font_freetype2.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_freetype2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_freetype2.s
 endif
 #
 $(O_ENGINE_DIR)/font_fnt.d:
 $(O_ENGINE_DIR)/font_fnt.o: $(C_ENGINE_DIR)/font_fnt.c $(O_ENGINE_DIR)/font_fnt.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_fnt.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_fnt.s
 endif
 #
 $(O_ENGINE_DIR)/font_eucjp.d:
 $(O_ENGINE_DIR)/font_eucjp.o: $(C_ENGINE_DIR)/font_eucjp.c $(O_ENGINE_DIR)/font_eucjp.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_eucjp.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_eucjp.s
 endif
 #
 $(O_ENGINE_DIR)/font_dbcs.d:
 $(O_ENGINE_DIR)/font_dbcs.o: $(C_ENGINE_DIR)/font_dbcs.c $(O_ENGINE_DIR)/font_dbcs.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_dbcs.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/font_dbcs.s
 endif
 #
 $(O_ENGINE_DIR)/devtimer.d:
 $(O_ENGINE_DIR)/devtimer.o: $(C_ENGINE_DIR)/devtimer.c $(O_ENGINE_DIR)/devtimer.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devtimer.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devtimer.s
 endif
 #
 $(O_ENGINE_DIR)/devstipple.d:
 $(O_ENGINE_DIR)/devstipple.o: $(C_ENGINE_DIR)/devstipple.c $(O_ENGINE_DIR)/devstipple.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devstipple.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devstipple.s
 endif
 #
 $(O_ENGINE_DIR)/devrgn2.d:
 $(O_ENGINE_DIR)/devrgn2.o: $(C_ENGINE_DIR)/devrgn2.c $(O_ENGINE_DIR)/devrgn2.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devrgn2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devrgn2.s
 endif
 #
 $(O_ENGINE_DIR)/devrgn.d:
 $(O_ENGINE_DIR)/devrgn.o: $(C_ENGINE_DIR)/devrgn.c $(O_ENGINE_DIR)/devrgn.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devrgn.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devrgn.s
 endif
 #
 $(O_ENGINE_DIR)/devpoly.d:
 $(O_ENGINE_DIR)/devpoly.o: $(C_ENGINE_DIR)/devpoly.c $(O_ENGINE_DIR)/devpoly.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpoly.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpoly.s
 endif
 #
 $(O_ENGINE_DIR)/devpalgray4.d:
 $(O_ENGINE_DIR)/devpalgray4.o: $(C_ENGINE_DIR)/devpalgray4.c $(O_ENGINE_DIR)/devpalgray4.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpalgray4.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpalgray4.s
 endif
 #
 $(O_ENGINE_DIR)/devpal8.d:
 $(O_ENGINE_DIR)/devpal8.o: $(C_ENGINE_DIR)/devpal8.c $(O_ENGINE_DIR)/devpal8.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal8.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal8.s
 endif
 #
 $(O_ENGINE_DIR)/devpal4.d:
 $(O_ENGINE_DIR)/devpal4.o: $(C_ENGINE_DIR)/devpal4.c $(O_ENGINE_DIR)/devpal4.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal4.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal4.s
 endif
 #
 $(O_ENGINE_DIR)/devpal2.d:
 $(O_ENGINE_DIR)/devpal2.o: $(C_ENGINE_DIR)/devpal2.c $(O_ENGINE_DIR)/devpal2.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal2.s
 endif
 #
 $(O_ENGINE_DIR)/devpal1.d:
 $(O_ENGINE_DIR)/devpal1.o: $(C_ENGINE_DIR)/devpal1.c $(O_ENGINE_DIR)/devpal1.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal1.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devpal1.s
 endif
 #
 $(O_ENGINE_DIR)/devopen.d:
 $(O_ENGINE_DIR)/devopen.o: $(C_ENGINE_DIR)/devopen.c $(O_ENGINE_DIR)/devopen.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devopen.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devopen.s
 endif
 #
 $(O_ENGINE_DIR)/devmouse.d:
 $(O_ENGINE_DIR)/devmouse.o: $(C_ENGINE_DIR)/devmouse.c $(O_ENGINE_DIR)/devmouse.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devmouse.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devmouse.s
 endif
 #
 $(O_ENGINE_DIR)/devlist.d:
 $(O_ENGINE_DIR)/devlist.o: $(C_ENGINE_DIR)/devlist.c $(O_ENGINE_DIR)/devlist.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devlist.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devlist.s
 endif
 #
 $(O_ENGINE_DIR)/devkbd.d:
 $(O_ENGINE_DIR)/devkbd.o: $(C_ENGINE_DIR)/devkbd.c $(O_ENGINE_DIR)/devkbd.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devkbd.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devkbd.s
 endif
 #
 $(O_ENGINE_DIR)/devimage_stretch.d:
 $(O_ENGINE_DIR)/devimage_stretch.o: $(C_ENGINE_DIR)/devimage_stretch.c $(O_ENGINE_DIR)/devimage_stretch.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devimage_stretch.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devimage_stretch.s
 endif
 #
 $(O_ENGINE_DIR)/devimage.d:
 $(O_ENGINE_DIR)/devimage.o: $(C_ENGINE_DIR)/devimage.c $(O_ENGINE_DIR)/devimage.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devimage.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devimage.s
 endif
 #
 $(O_ENGINE_DIR)/devfont.d:
 $(O_ENGINE_DIR)/devfont.o: $(C_ENGINE_DIR)/devfont.c $(O_ENGINE_DIR)/devfont.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devfont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devfont.s
 endif
 #
 $(O_ENGINE_DIR)/devdraw.d:
 $(O_ENGINE_DIR)/devdraw.o: $(C_ENGINE_DIR)/devdraw.c $(O_ENGINE_DIR)/devdraw.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devdraw.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devdraw.s
 endif
 #
 $(O_ENGINE_DIR)/devclip2.d:
 $(O_ENGINE_DIR)/devclip2.o: $(C_ENGINE_DIR)/devclip2.c $(O_ENGINE_DIR)/devclip2.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip2.s
 endif
 #
 $(O_ENGINE_DIR)/devclip1.d:
 $(O_ENGINE_DIR)/devclip1.o: $(C_ENGINE_DIR)/devclip1.c $(O_ENGINE_DIR)/devclip1.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip1.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip1.s
 endif
 #
 $(O_ENGINE_DIR)/devclip.d:
 $(O_ENGINE_DIR)/devclip.o: $(C_ENGINE_DIR)/devclip.c $(O_ENGINE_DIR)/devclip.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devclip.s
 endif
 #
 $(O_ENGINE_DIR)/devblit.d:
 $(O_ENGINE_DIR)/devblit.o: $(C_ENGINE_DIR)/devblit.c $(O_ENGINE_DIR)/devblit.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devblit.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devblit.s
 endif
 #
 $(O_ENGINE_DIR)/devarc.d:
 $(O_ENGINE_DIR)/devarc.o: $(C_ENGINE_DIR)/devarc.c $(O_ENGINE_DIR)/devarc.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devarc.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/devarc.s
 endif
 #
 $(O_ENGINE_DIR)/convblit_mask.d:
 $(O_ENGINE_DIR)/convblit_mask.o: $(C_ENGINE_DIR)/convblit_mask.c $(O_ENGINE_DIR)/convblit_mask.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_mask.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_mask.s
 endif
 #
 $(O_ENGINE_DIR)/convblit_frameb.d:
 $(O_ENGINE_DIR)/convblit_frameb.o: $(C_ENGINE_DIR)/convblit_frameb.c $(O_ENGINE_DIR)/convblit_frameb.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_frameb.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_frameb.s
 endif
 #
 $(O_ENGINE_DIR)/convblit_8888.d:
 $(O_ENGINE_DIR)/convblit_8888.o: $(C_ENGINE_DIR)/convblit_8888.c $(O_ENGINE_DIR)/convblit_8888.d $(MW_BASE_SRC)/config $(C_ENGINE_DIR)/Makefile.ajaguar $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the engine library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_8888.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ENGINE_DIR)/convblit_8888.s
 endif

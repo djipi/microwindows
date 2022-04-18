@@ -36,86 +36,98 @@ include $(ObjMWIN_d)
 #
 $(O_MWIN_DIR)/winclip.d:
 $(O_MWIN_DIR)/winclip.o: $(C_MWIN_DIR)/winclip.c $(O_MWIN_DIR)/winclip.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winclip.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winclip.s
 endif
 #
 $(O_MWIN_DIR)/windefw.d:
 $(O_MWIN_DIR)/windefw.o: $(C_MWIN_DIR)/windefw.c $(O_MWIN_DIR)/windefw.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/windefw.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/windefw.s
 endif
 #
 $(O_MWIN_DIR)/winevent.d:
 $(O_MWIN_DIR)/winevent.o: $(C_MWIN_DIR)/winevent.c $(O_MWIN_DIR)/winevent.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winevent.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winevent.s
 endif
 #
 $(O_MWIN_DIR)/winexpos.d:
 $(O_MWIN_DIR)/winexpos.o: $(C_MWIN_DIR)/winexpos.c $(O_MWIN_DIR)/winexpos.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winexpos.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winexpos.s
 endif
 #
 $(O_MWIN_DIR)/winfont.d:
 $(O_MWIN_DIR)/winfont.o: $(C_MWIN_DIR)/winfont.c $(O_MWIN_DIR)/winfont.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winfont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winfont.s
 endif
 #
 $(O_MWIN_DIR)/wingdi.d:
 $(O_MWIN_DIR)/wingdi.o: $(C_MWIN_DIR)/wingdi.c $(O_MWIN_DIR)/wingdi.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
-	$(objcopy) --rename-section .data=.mwwindata $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(Q)$(objcopy) --rename-section .data=.mwwindata $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/wingdi.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/wingdi.s
 endif
 #
 $(O_MWIN_DIR)/winmain.d:
 $(O_MWIN_DIR)/winmain.o: $(C_MWIN_DIR)/winmain.c $(O_MWIN_DIR)/winmain.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winmain.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winmain.s
 endif
 #
 $(O_MWIN_DIR)/winmain2.d:
 $(O_MWIN_DIR)/winmain2.o: $(C_MWIN_DIR)/winmain2.c $(O_MWIN_DIR)/winmain2.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winmain2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winmain2.s
 endif
 #
 $(O_MWIN_DIR)/winres.d:
 $(O_MWIN_DIR)/winres.o: $(C_MWIN_DIR)/winres.c $(O_MWIN_DIR)/winres.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winres.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winres.s
 endif
 #
 $(O_MWIN_DIR)/winrgn.d:
 $(O_MWIN_DIR)/winrgn.o: $(C_MWIN_DIR)/winrgn.c $(O_MWIN_DIR)/winrgn.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winrgn.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winrgn.s
 endif
 #
 $(O_MWIN_DIR)/winsbar.d:
 $(O_MWIN_DIR)/winsbar.o: $(C_MWIN_DIR)/winsbar.c $(O_MWIN_DIR)/winsbar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winsbar.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winsbar.s
 endif
 #
 $(O_MWIN_DIR)/winuser.d:
 $(O_MWIN_DIR)/winuser.o: $(C_MWIN_DIR)/winuser.c $(O_MWIN_DIR)/winuser.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile $(C_MWIN_DIR)/Makefile.ajaguar
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
-	$(objcopy) --rename-section .data=.mwwindata $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for mwin library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(Q)$(objcopy) --rename-section .data=.mwwindata $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winuser.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_MWIN_DIR)/winuser.s
 endif
