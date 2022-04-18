@@ -5,23 +5,12 @@
 # cmd sets the command / order to be used
 
 
-# Base microwindows directories
-#
-#C:/Projects/microwindows/src
-MW_BASE_SRC	=	../../..
-#C:/Projects/microwindows/src/contrib/ports/ajaguar
-MW_AJAGUAR_PRJ	=	.
-
-
-# Configuration
-#
-include $(MW_BASE_SRC)/config
-
-# winextra detection
-#
-ifeq ($(WINEXTRA), Y)
-$(error WINEXTRA must not be requested in config, please set it as N instead of Y)
+# Check the make version
+MAKE_VERSION := $(shell make -v 2>/dev/null)
+ifneq ($(findstring 4.3, $(MAKE_VERSION)), 4.3)
+$(error make version must be 4.3 or upper)
 endif
+
 
 # Support detection
 #
@@ -29,9 +18,9 @@ ifndef support
 $(error support is missing)
 else
 ifeq ($(support), SKUNKBOARD)
-SUPPORT_D	=	-DSKUNKBOARD
-SUPPORT_d	=	-dSKUNKBOARD
-SUPPORT_LIB	=	_SKUNKBOARD
+SUPPORT_D = -DSKUNKBOARD
+SUPPORT_d = -dSKUNKBOARD
+SUPPORT_LIB = _SKUNKBOARD
 $(info support is recognised, but SKUNKBOARD is not supported)
 else
 ifeq ($(support), NULL)
@@ -47,13 +36,13 @@ ifndef env
 $(error env is missing)
 else
 ifeq ($(env), Debug)
-VERSION	=	DEBUG
+VERSION	= DEBUG
 else
 ifeq ($(env), Release)
-VERSION	=	RELEASE
+VERSION	= RELEASE
 else
 ifeq ($(env), Profile)
-VERSION	=	PROFILE
+VERSION	= PROFILE
 else
 $(error env is not recognised, must be either Debug, Profile or Release)
 endif
@@ -61,39 +50,41 @@ endif
 endif
 endif
 
+
+# Base microwindows directories
+#
+#C:/Projects/microwindows/src
+MW_BASE_SRC	= ../../..
+#C:/Projects/microwindows/src/contrib/ports/ajaguar
+MW_AJAGUAR_PRJ = .
+
+
+# Configuration
+#
+# Compilation verbose
+Q := @
+#
+# Include the configuration file
+include $(MW_BASE_SRC)/config
+#
+# winextra detection
+ifeq ($(WINEXTRA), Y)
+$(error WINEXTRA must not be requested in config, please set it as N instead of Y)
+endif
+#
 # Configuration detection from config file
 ifeq ($(DEBUG), Y)
 ifneq ($(env), Debug)
 $(error env ($(env)) is not the same set in the config.ajaguar file)
 endif
 endif
+#
+# Include the tools executables and paths
+include config.mk
 
 
-# Assembler selection (SMAC, VASM)
-ASM	= VASM
-# VASM module (mot, std, madmac)
-ifeq ($(ASM), VASM)
-VASM_module	= madmac
-VASM_version = 1.8g
-endif
-# Format selection (elf, aout)
-FORMAT = elf
-# Compiler C type (gcc, vbcc)
-COMPILER_C_TYPE	= gcc
-# Compiler C version
-COMPILER_C_VERSION = 9.1.0
-# Compiler selection based on type and version
-COMPILER_C = $(COMPILER_C_TYPE)$(COMPILER_C_VERSION)
-# Compiler selection based on type, and version
-ifeq ($(COMPILER_C_VERSION), )
-COMPILER_SELECT	= $(COMPILER_C_TYPE)$(COMPILER_C_VERSION)
-else
-COMPILER_SELECT	= $(COMPILER_C_TYPE)-$(COMPILER_C_VERSION)
-endif
 # Executable selection (elf, srec)
-EXE_FORMAT = elf
-# Linker selection (jlinker, vlink, rln)
-LINKER_SELECT =	vlink
+EXE_FORMAT = $(FORMAT)
 # Libraries selection (lib-gcc, lib-m68k)
 VERSION_LIB	= lib-m68k
 # FDLIBM version (5.2-2, 5.3)
@@ -104,11 +95,10 @@ GET_SFromC = no
 ifeq ($(MICROWIN), Y)
 BASEMW = mw
 endif
-# Make version
-MAKE_VERSION := $(shell make -v 2>/dev/null)
-ifneq ($(findstring 4.3, $(MAKE_VERSION)), 4.3)
-$(error make version must be 4.3 or upper)
-endif
+# Lib M68K version (1.0, 1.1)
+LIB_M68K_VERSION  = 1.1
+# OSJAG version (1.0, 1.1)
+OSJAG_VERSION = 1.1
 # Microwindows version
 ifeq (, $(wildcard "$(MW_BASE_SRC)/Version"))
 VERLIB = $(file < $(MW_BASE_SRC)/Version)
@@ -198,93 +188,36 @@ EXE_FILENAME	=	$(DEMONAME)_$(env)_$(COMPILER_SELECT).$(ALNExt)
 #
 # GCC
 #
-ifeq	($(COMPILER_C_TYPE), gcc)
+ifeq ($(GCCMatch), yes)
+CCOpt = -c -m68000 -Wall -Wextra -MD -MP
 # Verbose configuration
 ifeq ($(VERBOSE), Y)
-CFLAGS += -v
+CCOpt += -v
 endif
-# .aout / coff format
-ifeq	($(FORMAT), aout)
-ifeq	($(COMPILER_C_VERSION), 3.3.6)
-CCProg = C:/GNU/xgcc-3.3.6-m68k/cygwin/usr/local/m68k-aout/bin/m68k-aout-gcc
-CCINC1 = C:/GNU/xgcc-3.3.6-m68k/cygwin/usr/local/m68k-aout/lib/gcc-lib/m68k-aout/3.3.6/include
-CCINC2 =
-$(error $(COMPILER_C_TYPE)-$(FORMAT)-$(COMPILER_C_VERSION) cannot be used)
-else
-ifeq	($(COMPILER_C_VERSION), 2.91.66)
-CCProg = C:/GNU/gcc-m68k-win32-r6/gcc-m68k/bin/m68k-coff-gcc
-CCINC1 = C:/GNU/gcc-m68k-win32-r6/gcc-m68k/m68k-coff/include
-CCINC2 =
-$(error $(COMPILER_C_TYPE)-$(FORMAT)-$(COMPILER_C_VERSION) cannot be used)
-else
-$(error COMPILER_C_VERSION is not set or wrongly dispatched)
+# Options configuration
+ifeq ($(FORMAT), elf)
+ifneq ($(env), Release)
+CCOpt += -gdwarf-2
 endif
 endif
-else
-# elf format
-ifeq	($(FORMAT), elf)
-ifneq ("$(wildcard C:/GNU/m68k-elf-$(COMPILER_C_VERSION)/m68k-elf/bin)","")
-CCProg	=	C:/GNU/m68k-elf-$(COMPILER_C_VERSION)/m68k-elf/bin/m68k-elf-gcc
-else
-ifneq ("$(wildcard C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/bin)","")
-CCProg	=	C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/bin/m68k-elf-gcc
-else
-ifneq ("$(wildcard C:/GNU/MinGW-m68k-elf-glo-$(COMPILER_C_VERSION)/bin)","")
-CCProg	=	C:/GNU/MinGW-m68k-elf-glo-$(COMPILER_C_VERSION)/bin/m68k-elf-gcc
-else
-ifneq ("$(wildcard C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/bin)","")
-CCProg	=	C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/bin/m68k-elf-gcc
-else
-$(error COMPILER_C_VERSION is not set or wrongly dispatched)
-endif
-endif
-endif
-endif
-#ifneq ("$(wildcard C:/GNU/m68k-elf-$(COMPILER_C_VERSION)/m68k-elf/m68k-elf/include)","")
-#CCINC1	=	C:/GNU/m68k-elf-$(COMPILER_C_VERSION)/m68k-elf/m68k-elf/include
-#CCINC2	=	C:/GNU/m68k-elf-$(COMPILER_C_VERSION)/m68k-elf/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/include
-#else
-#ifneq ("$(wildcard C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/m68k-elf/include)","")
-#CCINC1	=	C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/m68k-elf/include
-#CCINC2	=	C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/include
-#else
-#ifneq ("$(wildcard C:/GNU/MinGW-m68k-elf-glo-$(COMPILER_C_VERSION)/m68k-elf/include)","")
-#CCINC1	=	C:/GNU/MinGW-m68k-elf-glo-$(COMPILER_C_VERSION)/m68k-elf/include
-#CCINC2	=	C:/GNU/MinGW-m68k-elf-glo-$(COMPILER_C_VERSION)/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/include
-#else
-#ifneq ("$(wildcard C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/m68k-elf/include)","")
-#CCINC1	=	C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/m68k-elf/include
-#CCINC2	=	C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/include
-#else
-CCINC1	=	C:/GNU/m68k-elf-gcc-9.2.0/m68k-elf/include
-CCINC2	=	C:/GNU/m68k-elf-gcc-9.2.0/lib/gcc/m68k-elf/9.2.0/include
-#endif
-#endif
-#endif
-#endif
-else
-$(error FORMAT is not set or wrongly dispatched for $(COMPILER_SELECT))
-endif
-endif
-CCOptCommon = -c -m68000 -Wall -Wextra $(CFLAGS) -MD -MP
 #-fno-align-functions
 #Debug
 ifeq ($(env), Debug)
-CCOpt = $(CCOptCommon) -g -gdwarf-2 -O0
+CCOpt += -g -O0
 # -mno-align-int -mstrict-align
 # -gdwarf-2 -Werror -msoft-float -malign-int -fno-leading-underscore -MD -MP -fstack-usage -pedantic-errors -Wfatal-errors
 else
 #Release
 ifeq ($(env), Release)
-CCOpt = $(CCOptCommon) -fomit-frame-pointer -Ofast -DNDEBUG
+CCOpt += -fomit-frame-pointer -Ofast -DNDEBUG
 # -Werror -Wfatal-errors
 else
 # Profile
 ifeq ($(env), Profile)
-CCOpt = $(CCOptCommon) -pg -g -gdwarf-2 -O0 -fstack-usage -DDEBUG
+CCOpt += -pg -g -O0 -fstack-usage -DDEBUG
 # -pedantic-errors -Wfatal-errors
 else
-$(error env is not recognised, must be either Debug, Profile or Release)
+$(error $(env) is not recognised, or not configured)
 endif
 endif
 endif
@@ -372,6 +305,7 @@ endif
 #OPENGL_INC = -IC:/Projects/TinyGL/JaGL/include
 #WARP_INC = -IC:/SDK/Jaguar/jlibc-0.5.8/include
 CC_INC = -I$(CCINC1) -I$(CCINC2)
+# -IC:/Projects/Lib-M68K/include
 H_INC = -I$(MW_BASE_SRC)/include -IC:\SDK\AJaguar\OfficialJaguarKit\INCLUDE
 WARP_INC = -IC:/Projects/Lib-M68K/include
 ifeq ($(WINEXTRA), Y)
@@ -409,28 +343,27 @@ endif
 
 # ASM information
 #
-ifeq ($(ASM), SMAC)
-ASMProg	=	C:/Jaguar/SlnSmac/smac
+ifeq ($(ASM), smac)
+ifeq ($(FORMAT), aout)
 ASMOpt = -fb -rp -v -iC:/SDK/Jaguar/OfficialJaguarKit/Include -d$(VERSION) -d$(ASM) -s
 #C:\SDK\Jaguar\ATARIJaguarSDK\INCLUDE
-ifneq ($(FORMAT), aout)
-$(error FORMAT is not recognised, must be aout)
+else
+$(error $(FORMAT) is not recognised, or not configured)
 endif
 else
-ifeq ($(ASM), VASM)
-ASMProg	=	C:/VB/Vasmm68k/vasmm68k_$(VASM_module)_win32_$(VASM_version)
-ASMOpt	=	-m68000 -F$(FORMAT) -D$(VERSION)=1 -D$(ASM)
+ifeq ($(ASM), vasm)
+ASMOpt = -m68000 -F$(FORMAT) -D$(VERSION)=1 -D$(ASM)
 ifeq ($(VERSION), RELEASE)
-ASMOpt	+=	 -DDEBUG=0 -DPROFILE=0
+ASMOpt += -DDEBUG=0 -DPROFILE=0
 endif
 ifeq ($(VERSION), DEBUG)
-ASMOpt	+=	 -dwarf=3 -DRELEASE=0 -DPROFILE=0
+ASMOpt += -dwarf=3 -DRELEASE=0 -DPROFILE=0
 endif
 ifeq ($(VERSION), PROFILE)
-ASMOpt	+=	 -dwarf=3 -DDEBUG=1 -DRELEASE=0
+ASMOpt += -dwarf=3 -DDEBUG=1 -DRELEASE=0
 endif
 else
-$(error ASM is not recognised, must be either smac, vasm)
+$(error $(ASM) is not recognised, or not configured)
 endif
 endif
 
@@ -438,7 +371,6 @@ endif
 #
 ## Vlink linker information
 ifeq ($(LINKER_SELECT),vlink)
-JAGLINKR = C:/VB/Vlink/vlink0.16c
 ifeq ($(FORMAT), elf)
 ALNFLAGS = -b elf32jag -T mwELFls_$(VERSION_LIB)_$(env) -EB -e _start -M
 ALNFLAGS_DRAM8MB = -b elf32jag -T mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB -EB -e _start -M
@@ -451,62 +383,47 @@ ALNFLAGS = -M -b aoutjaguar -t -sc -sd -EB -e _start -Ttext 0x$(STADDR)
 # -C gnu
 ALNExt=bin
 endif
+else
+$(error $(LINKER_SELECT) is not recognised, or not configured)
 endif
 
 # External libraries information
 ifeq ($(VERSION_LIB), lib-m68k)
-DIR_LIBS	= $(DEMOS_DIR)/Lib
-LIB_GCC		= $(DIR_LIBS)/libgcc-1.0_$(env)-M68K.$(FORMAT).a
-LIBC		= $(DIR_LIBS)/libc-1.0_$(env)-M68K.$(FORMAT).a
-LIBM		= $(DIR_LIBS)/libm-1.0_$(env)-M68K.$(FORMAT).a
-LIB_EXTRN	= $(DEMOS_DIR)/Lib/fdlibm/fdlibm-$(FDLIBMVer)_IEEE_LIBM_$(env)_m68k-gcc-$(COMPILER_C_VERSION).$(FORMAT).a
+DIR_LIBS = $(DEMOS_DIR)/Lib
+LIB_GCC = $(DIR_LIBS)/libgcc-$(LIB_M68K_VERSION)_$(env)-M68K.$(FORMAT).a
+LIBC = $(DIR_LIBS)/libc-$(LIB_M68K_VERSION)_$(env)-M68K.$(FORMAT).a
+LIBM = $(DIR_LIBS)/libm-$(LIB_M68K_VERSION)_$(env)-M68K.$(FORMAT).a
+LIB_EXTRN = $(DEMOS_DIR)/Lib/fdlibm/fdlibm-$(FDLIBMVer)_IEEE_LIBM_$(env)_m68k-gcc-$(COMPILER_C_VERSION).$(FORMAT).a
 else
 ifeq ($(VERSION_LIB), lib-gcc)
-DIR_LIBS	=
-ifneq ("$(wildcard C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/lib/gcc/m68k-elf)","")
-LIB_GCC		= C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/mcpu32/libgcc.a
-LIBC		= C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libc.a C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libbcc.a
-LIBM		= C:/GNU/m68k-elf-gcc$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libm.a
+DIR_LIBS =
+LIB_GCC = $(DIRLIBGCC)/libgcc.a
+LIBC = $(DIRLIBC)/libc.a $(DIRLIBC)/libbcc.a
+LIBM = $(DIRLIBC)/libm.a
+LIB_EXTRN =
 else
-ifneq ("$(wildcard C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/lib/gcc/m68k-elf)","")
-LIB_GCC		= C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/lib/gcc/m68k-elf/$(COMPILER_C_VERSION)/mcpu32/libgcc.a
-LIBC		= C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libc.a C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libbcc.a
-LIBM		= C:/GNU/m68k-elf-gcc-$(COMPILER_C_VERSION)/m68k-elf/lib/mcpu32/libm.a
-else
-$(error COMPILER_C_VERSION is not set or wrongly dispatched)
-endif
-endif
-else
-$(error VERSION_LIB is not set or wrongly dispatched)
+$(error $(VERSION_LIB) is not set or wrongly dispatched)
 endif
 endif
 #
-LIB_OS		= $(DEMOS_DIR)/Lib/OSJag/$(DEMOBASE)OSJag-1.0_$(env)_$(COMPILER_SELECT).$(FORMAT).a
+LIB_OS = $(DEMOS_DIR)/Lib/OSJag/$(DEMOBASE)OSJag-$(OSJAG_VERSION)_$(env)_$(COMPILER_SELECT).$(FORMAT).a
 
 # Lib information
 #
 ## GNU library information
-AR			= C:/GNU/m68k-elf-gcc-10.0.0/bin/m68k-elf-ar
-ARAN		= C:/GNU/m68k-elf-gcc-10.0.0/bin/m68k-elf-ranlib
-AR_OPT		= cru
+AR_OPT = cru
 # rs
-ARAN_OPT	=
-LIBExt		= a
+ARAN_OPT =
+LIBExt = a
 #
 # Library name
-LIBMW_FILENAME			= $(BASEMW)$(VERLIB)_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBMWIN_FILENAME		= $(BASEMW)$(VERLIB)-Mwin_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBWINEXTRA_FILENAME	= $(BASEMW)$(VERLIB)-Winextra_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBENGINE_FILENAME		= $(BASEMW)$(VERLIB)-Engine_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBDRIVERS_FILENAME 	= $(BASEMW)$(VERLIB)-Drivers_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBFONTS_FILENAME		= $(BASEMW)$(VERLIB)-Fonts_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-LIBIMAGES_FILENAME		= $(BASEMW)$(VERLIB)-$(DEMOBASE)-Images_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
-
-# Obj modification information
-objcopy = C:/GNU/m68k-elf-gcc-10.0.0/bin/m68k-elf-objcopy
-
-# Debug reader information
-readelf = C:/GNU/m68k-elf-gcc-10.0.0/bin/m68k-elf-readelf
+LIBMW_FILENAME = $(BASEMW)$(VERLIB)_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBMWIN_FILENAME = $(BASEMW)$(VERLIB)-Mwin_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBWINEXTRA_FILENAME = $(BASEMW)$(VERLIB)-Winextra_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBENGINE_FILENAME = $(BASEMW)$(VERLIB)-Engine_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBDRIVERS_FILENAME = $(BASEMW)$(VERLIB)-Drivers_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBFONTS_FILENAME = $(BASEMW)$(VERLIB)-Fonts_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
+LIBIMAGES_FILENAME = $(BASEMW)$(VERLIB)-$(DEMOBASE)-Images_$(env)_m68k-$(COMPILER_SELECT).$(FORMAT).$(LIBExt)
 
 # Tools information
 TODOS = C:\Tools\tfd1713\todos
@@ -514,7 +431,7 @@ TODOS_OPT = -o -u -v
 CONVBMP = $(MW_BASE_SRC)\images\vs2017\tools\x64\Release\convbmp
 
 # Dependencies list
-DEPENDENCE_LIST	=	build.bat makefile $(MW_BASE_SRC)/config $(LIB_OS) $(LIB_EXTRN) $(LIB_GCC) $(LIB_C) $(LIB_M)
+DEPENDENCE_LIST	= build.bat makefile $(MW_BASE_SRC)/config $(LIB_OS) $(LIB_EXTRN) $(LIB_GCC) $(LIB_C) $(LIB_M)
 
 
 # Check directory existence
@@ -578,10 +495,9 @@ include $(MW_BASE_SRC)/images/Makefile.ajaguar
 #
 # Runtime objects list
 ObjRuntime		=	$(O_RUNTIME_DIR)/STARTUP.o \
-					$(O_ARGVS_DIR)/$(DEMONAME)_Argvs.o \
 					$(O_OSJAGFILES_DIR)/$(DEMONAME)_OSJAG_Directory.o
 #
-ObjRuntime_d	=	$(O_ARGVS_DIR)/$(DEMONAME)_Argvs.d
+ObjRuntime_d	=
 #
 # winextra objects list
 ObjWINEXTRA		=	$(O_WINEXTRA_DIR)/setenv.o \
@@ -605,17 +521,12 @@ Runtime:	$(ObjRuntime)
 include $(ObjRuntime_d)
 #
 $(O_RUNTIME_DIR)/STARTUP.o: $(SR_DIR)/STARTUP.s $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
-	$(ASMProg) $< $(ASMOpt) -o $@
-#
-$(O_ARGVS_DIR)/$(DEMONAME)_Argvs.d:
-$(O_ARGVS_DIR)/$(DEMONAME)_Argvs.o: $(SR_ARGVS_DIR)/$(DEMONAME)_Argvs.c $(O_ARGVS_DIR)/$(DEMONAME)_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
-ifeq ($(GET_SFromC),yes)	
-#	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
-endif
+	@echo -e "\033[01;33m***\033[00;32m Assembling $< for the demo's runtime...\033[00m"
+	$(Q)$(ASMProg) $< $(ASMOpt) -o $@
 #
 $(O_OSJAGFILES_DIR)/$(DEMONAME)_OSJAG_Directory.o: $(OSJAGFILES_DIR)/$(DEMONAME)_OSJAG_Directory.asm $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
-	$(ASMProg) $< $(ASMOpt) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Assembling $< for the demo's directory...\033[00m"
+	$(Q)$(ASMProg) $< $(ASMOpt) -o $@
 
 
 # winextra
@@ -629,44 +540,50 @@ endif
 #
 $(O_WINEXTRA_DIR)/setenv.d:
 $(O_WINEXTRA_DIR)/setenv.o: $(C_WINEXTRA_DIR)/setenv.c $(O_WINEXTRA_DIR)/setenv.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/setenv.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/setenv.s
 endif
 #
 $(O_WINEXTRA_DIR)/stub_winevent.d:
 $(O_WINEXTRA_DIR)/stub_winevent.o: $(C_WINEXTRA_DIR)/stub_winevent.c $(O_WINEXTRA_DIR)/stub_winevent.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winevent.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winevent.s
 endif
 #
 $(O_WINEXTRA_DIR)/stub_winfont.d:
 $(O_WINEXTRA_DIR)/stub_winfont.o: $(C_WINEXTRA_DIR)/stub_winfont.c $(O_WINEXTRA_DIR)/stub_winfont.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winfont.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winfont.s
 endif
 #
 $(O_WINEXTRA_DIR)/stub_wingdi.d:
 $(O_WINEXTRA_DIR)/stub_wingdi.o: $(C_WINEXTRA_DIR)/stub_wingdi.c $(O_WINEXTRA_DIR)/stub_wingdi.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_wingdi.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_wingdi.s
 endif
 #
 $(O_WINEXTRA_DIR)/stub_winrgn.d:
 $(O_WINEXTRA_DIR)/stub_winrgn.o: $(C_WINEXTRA_DIR)/stub_winrgn.c $(O_WINEXTRA_DIR)/stub_winrgn.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winrgn.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winrgn.s
 endif
 #
 $(O_WINEXTRA_DIR)/stub_winuser.d:
 $(O_WINEXTRA_DIR)/stub_winuser.o: $(C_WINEXTRA_DIR)/stub_winuser.c $(O_WINEXTRA_DIR)/stub_winuser.d $(MW_BASE_SRC)/config
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for winextra library...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winuser.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_WINEXTRA_DIR)/stub_winuser.s
 endif
 
 
@@ -702,48 +619,55 @@ endif
 
 # Library creation
 $(LIB_DIR)/$(LIBMW_FILENAME):	$(LIBMW_OBJS) $(DEPENDENCE_LIST)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIBMW_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBMW_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the full library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIBMW_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBMW_FILENAME)
 #
 # Library images creation
 $(LIB_DIR)/$(LIBIMAGES_FILENAME):	$(LIBIMAGES_OBJS) $(DEPENDENCE_LIST)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIBIMAGES_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBIMAGES_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the images library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIBIMAGES_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBIMAGES_FILENAME)
 #
 # Library engine creation
 $(LIB_DIR)/$(LIBENGINE_FILENAME):	$(LIBENGINE_OBJS) $(DEPENDENCE_LIST)
 ifeq ($(ENGINE), Y)
 ifeq ($(MULTILIBS), yes)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBENGINE_FILENAME) $(LIBENGINE_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBENGINE_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the engine library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBENGINE_FILENAME) $(LIBENGINE_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBENGINE_FILENAME)
 endif
 endif
 #
 # Library fonts creation
 $(LIB_DIR)/$(LIBFONTS_FILENAME):	$(LIBFONTS_OBJS) $(DEPENDENCE_LIST)
 ifeq ($(MULTILIBS), yes)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBFONTS_FILENAME) $(LIBFONTS_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBFONTS_FILENAME)	
+	@echo -e "\033[01;33m***\033[00;32m Creating the fonts library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBFONTS_FILENAME) $(LIBFONTS_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBFONTS_FILENAME)	
 endif
 #
 # Library drivers creation
 $(LIB_DIR)/$(LIBDRIVERS_FILENAME):	$(LIBDRIVERS_OBJS) $(DEPENDENCE_LIST)
 ifeq ($(MULTILIBS), yes)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBDRIVERS_FILENAME) $(LIBDRIVERS_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBDRIVERS_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the drivers library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBDRIVERS_FILENAME) $(LIBDRIVERS_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBDRIVERS_FILENAME)
 endif
 #
 # Library mwin creation
 $(LIB_DIR)/$(LIBMWIN_FILENAME):	$(LIBMWIN_OBJS) $(DEPENDENCE_LIST)
 ifeq ($(MULTILIBS), yes)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBMWIN_FILENAME) $(LIBMWIN_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBMWIN_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the mwin library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBMWIN_FILENAME) $(LIBMWIN_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBMWIN_FILENAME)
 endif
 #
 # Library winextra creation
 $(LIB_DIR)/$(LIBWINEXTRA_FILENAME):	$(LIBWINEXTRA_OBJS) $(DEPENDENCE_LIST)
-	$(AR) $(AR_OPT) $(LIB_DIR)/$(LIBWINEXTRA_FILENAME) $(LIBWINEXTRA_OBJS)
-	$(ARAN) $(ARAN_OPT) $(LIB_DIR)/$(LIBWINEXTRA_FILENAME)
+	@echo -e "\033[01;33m***\033[00;32m Creating the winextra library...\033[00m"
+	$(Q)$(ARProg) $(AR_OPT) $(LIB_DIR)/$(LIBWINEXTRA_FILENAME) $(LIBWINEXTRA_OBJS)
+	$(Q)$(ARANProg) $(ARAN_OPT) $(LIB_DIR)/$(LIBWINEXTRA_FILENAME)
 
 
 # Reports creation
@@ -889,90 +813,100 @@ clean:	clean_obj \
 #
 # Delete the libraries
 clean_libs:
-		rm -f $(LIB_DIR)/$(LIBMW_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBMWIN_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBWINEXTRA_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBENGINE_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBDRIVERS_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBFONTS_FILENAME)
-		rm -f $(LIB_DIR)/$(LIBIMAGES_FILENAME)
+		@echo -e "\033[01;33m***\033[00;32m Removing the library files...\033[00m"	
+		$(Q)rm -f $(LIB_DIR)/$(LIBMW_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBMWIN_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBWINEXTRA_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBENGINE_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBDRIVERS_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBFONTS_FILENAME)
+		$(Q)rm -f $(LIB_DIR)/$(LIBIMAGES_FILENAME)
 #
 # Delete the demos executable
 clean_demos:
-		rm -f $(DEMOS_DIR)/$(BASEMW)*_$(env)_$(COMPILER_SELECT).$(ALNExt)
+		@echo -e "\033[01;33m***\033[00;32m Removing the demos...\033[00m"	
+		$(Q)rm -f $(DEMOS_DIR)/$(BASEMW)*_$(env)_$(COMPILER_SELECT).$(ALNExt)
 #
 # Delete the sources generated from the bitmaps for the demos
 clean_images_sources_generated_demos:
-		rm -f $(CIMAGES)
+		@echo -e "\033[01;33m***\033[00;32m Removing the bitmaps's demos generated files...\033[00m"	
+		$(Q)rm -f $(CIMAGES)
 #
 # Delete the map files from demos executable
 clean_maps:
-		rm -f $(DEMOS_DIR)/*_$(env)_$(COMPILER_SELECT).$(ALNExt).map
+		@echo -e "\033[01;33m***\033[00;32m Removing the map generated files...\033[00m"	
+		$(Q)rm -f $(DEMOS_DIR)/*_$(env)_$(COMPILER_SELECT).$(ALNExt).map
 #
 # Delete the object files
 clean_obj:
-		rm -f $(O_MWIN_DIR)/*.o
-		rm -f $(O_WINLIB_DIR)/*.o
-		rm -f $(O_WINEXTRA_DIR)/*.o
-		rm -f $(O_ENGINE_DIR)/*.o
-		rm -f $(O_DRIVERS_DIR)/*.o
-		rm -f $(O_FONTS_DIR)/*.o
-		rm -f $(O_DEMOS_DIR)/*.o
-		rm -f $(O_IMAGES_DIR)/*/*.o
+		@echo -e "\033[01;33m***\033[00;32m Removing the obj files...\033[00m"	
+		$(Q)rm -f $(O_MWIN_DIR)/*.o
+		$(Q)rm -f $(O_WINLIB_DIR)/*.o
+		$(Q)rm -f $(O_WINEXTRA_DIR)/*.o
+		$(Q)rm -f $(O_ENGINE_DIR)/*.o
+		$(Q)rm -f $(O_DRIVERS_DIR)/*.o
+		$(Q)rm -f $(O_FONTS_DIR)/*.o
+		$(Q)rm -f $(O_DEMOS_DIR)/*.o
+		$(Q)rm -f $(O_IMAGES_DIR)/*/*.o
 #
 # Delete the stack usage files
 clean_su:
-		rm -f $(O_MWIN_DIR)/*.su
-		rm -f $(O_WINLIB_DIR)/*.su
-		rm -f $(O_WINEXTRA_DIR)/*.su
-		rm -f $(O_ENGINE_DIR)/*.su
-		rm -f $(O_DRIVERS_DIR)/*.su
-		rm -f $(O_OFONTS_DIR)/*.su
-		rm -f $(O_DEMOS_DIR)/*.su
-		rm -f $(O_IMAGES_DIR)/*/*.su
+		@echo -e "\033[01;33m***\033[00;32m Removing the stack usage generated files...\033[00m"	
+		$(Q)rm -f $(O_MWIN_DIR)/*.su
+		$(Q)rm -f $(O_WINLIB_DIR)/*.su
+		$(Q)rm -f $(O_WINEXTRA_DIR)/*.su
+		$(Q)rm -f $(O_ENGINE_DIR)/*.su
+		$(Q)rm -f $(O_DRIVERS_DIR)/*.su
+		$(Q)rm -f $(O_OFONTS_DIR)/*.su
+		$(Q)rm -f $(O_DEMOS_DIR)/*.su
+		$(Q)rm -f $(O_IMAGES_DIR)/*/*.su
 #
 # Delete the dependence files
 clean_d:
-		rm -f $(O_MWIN_DIR)/*.d
-		rm -f $(O_WINLIB_DIR)/*.d
-		rm -f $(O_WINEXTRA_DIR)/*.d
-		rm -f $(O_ENGINE_DIR)/*.d
-		rm -f $(O_DRIVERS_DIR)/*.d
-		rm -f $(O_FONTS_DIR)/*.d
-		rm -f $(O_DEMOS_DIR)/*.d
-		rm -f $(O_IMAGES_DIR)/*/*.d
+		@echo -e "\033[01;33m***\033[00;32m Removing the dependency files...\033[00m"	
+		$(Q)rm -f $(O_MWIN_DIR)/*.d
+		$(Q)rm -f $(O_WINLIB_DIR)/*.d
+		$(Q)rm -f $(O_WINEXTRA_DIR)/*.d
+		$(Q)rm -f $(O_ENGINE_DIR)/*.d
+		$(Q)rm -f $(O_DRIVERS_DIR)/*.d
+		$(Q)rm -f $(O_FONTS_DIR)/*.d
+		$(Q)rm -f $(O_DEMOS_DIR)/*.d
+		$(Q)rm -f $(O_IMAGES_DIR)/*/*.d
 #
 # Delete the asm files generated by compilation		
 clean_s:
-		rm -f $(S_MWIN_DIR)/*.s
-		rm -f $(S_WINLIB_DIR)/*.s
-		rm -f $(S_WINEXTRA_DIR)/*.s
-		rm -f $(S_ENGINE_DIR)/*.s
-		rm -f $(S_DRIVERS_DIR)/*.s
-		rm -f $(S_FONTS_DIR)/*.s
-		rm -f $(S_DEMOS_DIR)/*.s
-		rm -f $(S_IMAGES_DIR)/*/*.s
+		@echo -e "\033[01;33m***\033[00;32m Removing the asm sources generated from C compilation...\033[00m"	
+		$(Q)rm -f $(S_MWIN_DIR)/*.s
+		$(Q)rm -f $(S_WINLIB_DIR)/*.s
+		$(Q)rm -f $(S_WINEXTRA_DIR)/*.s
+		$(Q)rm -f $(S_ENGINE_DIR)/*.s
+		$(Q)rm -f $(S_DRIVERS_DIR)/*.s
+		$(Q)rm -f $(S_FONTS_DIR)/*.s
+		$(Q)rm -f $(S_DEMOS_DIR)/*.s
+		$(Q)rm -f $(S_IMAGES_DIR)/*/*.s
 #
 # Delete the Runtime's object, stack usage, asm generated and dependence files
 clean_Runtime:
-		rm -f $(O_RUNTIME_DIR)/STARTUP.o
-		rm -f $(O_ARGVS_DIR)/*.o
-		rm -f $(O_OSJAGFILES_DIR)/*.o
+		@echo -e "\033[01;33m***\033[00;32m Removing the Runtime generated files...\033[00m"	
+		$(Q)rm -f $(O_RUNTIME_DIR)/STARTUP.o
+		$(Q)rm -f $(O_ARGVS_DIR)/*.o
+		$(Q)rm -f $(O_OSJAGFILES_DIR)/*.o
 #
 # Delete reports
 clean_reports:
-		rm -f $(LIB_DUMP_DIR)/$(LIBMW_FILENAME)*.txt
-		rm -f $(LIB_DUMP_DIR)/$(LIBMWIN_FILENAME)*.txt
-		rm -f $(LIB_DUMP_DIR)/$(LIBWINEXTRA_FILENAME)*.txt
-		rm -f $(LIB_DUMP_DIR)/$(LIBENGINE_FILENAME)*.txt
-		rm -f $(LIB_DUMP_DIR)/$(LIBDRIVERS_FILENAME)*.txt
-		rm -f $(LIB_DUMP_DIR)/$(LIBFONTS_FILENAME)*.txt
-		rm -f $(LIB_REPORTS_DIR)/*.txt
-		rm -f $(DEMOS_REPORTS_DIR)/*.txt
-		rm -f $(DEMOS_DUMP_DIR)/*.txt
-		rm -f $(IMAGES_REPORTS_DIR)/*.txt
-		rm -f $(IMAGES_DUMP_DIR)/*.txt
-		
+		@echo -e "\033[01;33m***\033[00;32m Removing the report files...\033[00m"	
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBMW_FILENAME)*.txt
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBMWIN_FILENAME)*.txt
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBWINEXTRA_FILENAME)*.txt
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBENGINE_FILENAME)*.txt
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBDRIVERS_FILENAME)*.txt
+		$(Q)rm -f $(LIB_DUMP_DIR)/$(LIBFONTS_FILENAME)*.txt
+		$(Q)rm -f $(LIB_REPORTS_DIR)/*.txt
+		$(Q)rm -f $(DEMOS_REPORTS_DIR)/*.txt
+		$(Q)rm -f $(DEMOS_DUMP_DIR)/*.txt
+		$(Q)rm -f $(IMAGES_REPORTS_DIR)/*.txt
+		$(Q)rm -f $(IMAGES_DUMP_DIR)/*.txt
+
 
 # Create directories
 #
@@ -985,44 +919,48 @@ makedirs:	mkdir_reports \
 #
 # Create the Runtime's object, stack usage and dependence files directories
 mkdir_Runtime:
-		mkdir -p $(O_RUNTIME_DIR)
-		mkdir -p $(O_ARGVS_DIR)
-		mkdir -p $(O_OSJAGFILES_DIR)
+		@echo -e "\033[01;33m***\033[00;32m Creating the Runtime directory...\033[00m"
+		$(Q)test -d $(O_RUNTIME_DIR) || echo Create $(O_RUNTIME_DIR) && mkdir -p "$(O_RUNTIME_DIR)"
+		$(Q)test -d $(O_ARGVS_DIR) || echo Create $(O_ARGVS_DIR) && mkdir -p "$(O_ARGVS_DIR)"
+		$(Q)test -d $(O_OSJAGFILES_DIR) || echo Create $(O_OSJAGFILES_DIR) && mkdir -p "$(O_OSJAGFILES_DIR)"
 #
 # Create the reports files directories
 mkdir_reports:
-		mkdir -p $(LIB_DUMP_DIR)
-		mkdir -p $(LIB_REPORTS_DIR)
-		mkdir -p $(DEMOS_DUMP_DIR)
-		mkdir -p $(DEMOS_REPORTS_DIR)
-		mkdir -p $(IMAGES_DUMP_DIR)
-		mkdir -p $(IMAGES_REPORTS_DIR)
+		@echo -e "\033[01;33m***\033[00;32m Creating the reports directories...\033[00m"
+		$(Q)test -d $(LIB_DUMP_DIR) || echo Create $(LIB_DUMP_DIR) && mkdir -p "$(LIB_DUMP_DIR)"
+		$(Q)test -d $(LIB_REPORTS_DIR) || echo Create $(LIB_REPORTS_DIR) && mkdir -p "$(LIB_REPORTS_DIR)"
+		$(Q)test -d $(DEMOS_DUMP_DIR) || echo Create $(DEMOS_DUMP_DIR) && mkdir -p "$(DEMOS_DUMP_DIR)"
+		$(Q)test -d $(DEMOS_REPORTS_DIR) || echo Create $(DEMOS_REPORTS_DIR) && mkdir -p "$(DEMOS_REPORTS_DIR)"
+		$(Q)test -d $(IMAGES_DUMP_DIR) || echo Create $(IMAGES_DUMP_DIR) && mkdir -p "$(IMAGES_DUMP_DIR)"
+		$(Q)test -d $(IMAGES_REPORTS_DIR) || echo Create $(IMAGES_REPORTS_DIR) && mkdir -p "$(IMAGES_REPORTS_DIR)"
 #
 # Create the object, stack usage and dependence files directories
 mkdir_obj:
 mkdir_su:
 mkdir_d:
-		mkdir -p $(O_MWIN_DIR)
-		mkdir -p $(O_WINLIB_DIR)
-		mkdir -p $(O_WINEXTRA_DIR)
-		mkdir -p $(O_ENGINE_DIR)
-		mkdir -p $(O_DRIVERS_DIR)
-		mkdir -p $(O_FONTS_DIR)
-		mkdir -p $(O_DEMOS_DIR)
-		mkdir -p $(O_IMAGES_DIR)
-		mkdir -p $(O_IMAGES_DIR)/mwmine
+		@echo -e "\033[01;33m***\033[00;32m Creating the dependencies and objs directories...\033[00m"
+		$(Q)test -d $(O_MWIN_DIR) || echo Create $(O_MWIN_DIR) && mkdir -p "$(O_MWIN_DIR)"
+		$(Q)test -d $(O_WINLIB_DIR) || echo Create $(O_WINLIB_DIR) && mkdir -p "$(O_WINLIB_DIR)"
+		$(Q)test -d $(O_WINEXTRA_DIR) || echo Create $(O_WINEXTRA_DIR) && mkdir -p "$(O_WINEXTRA_DIR)"
+		$(Q)test -d $(O_ENGINE_DIR) || echo Create $(O_ENGINE_DIR) && mkdir -p "$(O_ENGINE_DIR)"
+		$(Q)test -d $(O_DRIVERS_DIR) || echo Create $(O_DRIVERS_DIR) && mkdir -p "$(O_DRIVERS_DIR)"
+		$(Q)test -d $(O_FONTS_DIR) || echo Create $(O_FONTS_DIR) && mkdir -p "$(O_FONTS_DIR)"
+		$(Q)test -d $(O_DEMOS_DIR) || echo Create $(O_DEMOS_DIR) && mkdir -p "$(O_DEMOS_DIR)"
+		$(Q)test -d $(O_IMAGES_DIR) || echo Create $(O_IMAGES_DIR) && mkdir -p "$(O_IMAGES_DIR)"
+		$(Q)test -d $(O_IMAGES_DIR)/mwmine || echo Create $(O_IMAGES_DIR)/mwmine && mkdir -p "$(O_IMAGES_DIR)/mwmine"
 #
 # Create the asm files, generated by compilation, directories		
 mkdir_s:
-		mkdir -p $(S_MWIN_DIR)
-		mkdir -p $(S_WINLIB_DIR)
-		mkdir -p $(S_WINEXTRA_DIR)
-		mkdir -p $(S_ENGINE_DIR)
-		mkdir -p $(S_DRIVERS_DIR)
-		mkdir -p $(S_FONTS_DIR)
-		mkdir -p $(S_DEMOS_DIR)
-		mkdir -p $(S_IMAGES_DIR)
-		mkdir -p $(S_IMAGES_DIR)/mwmine
+		@echo -e "\033[01;33m***\033[00;32m Creating the generated asm directories...\033[00m"
+		$(Q)test -d $(S_MWIN_DIR) || echo Create $(S_MWIN_DIR) && mkdir -p "$(S_MWIN_DIR)"
+		$(Q)test -d $(S_WINLIB_DIR) || echo Create $(S_WINLIB_DIR) && mkdir -p "$(S_WINLIB_DIR)"
+		$(Q)test -d $(S_WINEXTRA_DIR) || echo Create $(S_WINEXTRA_DIR) && mkdir -p "$(S_WINEXTRA_DIR)"
+		$(Q)test -d $(S_ENGINE_DIR) || echo Create $(S_ENGINE_DIR) && mkdir -p "$(S_ENGINE_DIR)"
+		$(Q)test -d $(S_DRIVERS_DIR) || echo Create $(S_DRIVERS_DIR) && mkdir -p "$(S_DRIVERS_DIR)"
+		$(Q)test -d $(S_FONTS_DIR) || echo Create $(S_FONTS_DIR) && mkdir -p "$(S_FONTS_DIR)"
+		$(Q)test -d $(S_DEMOS_DIR) || echo Create $(S_DEMOS_DIR) && mkdir -p "$(S_DEMOS_DIR)"
+		$(Q)test -d $(S_IMAGES_DIR) || echo Create $(S_IMAGES_DIR) && mkdir -p "$(S_IMAGES_DIR)"
+		$(Q)test -d $(S_IMAGES_DIR)/mwmine || echo Create $(S_IMAGES_DIR)/mwmine && mkdir -p "$(S_IMAGES_DIR)/mwmine"
 
 		
 # Display configuration
@@ -1049,8 +987,10 @@ config_demo:
 # Display the command for the libraries used by the demo
 config_demos_library:
 	$(info ----------------- Library for demos)
-	$(info fdlibm          : $(FDLIBMVer))
-	$(info lib c           : $(VERSION_LIB))
+	$(info Maths           : $(LIBM))
+	$(info C               : $(LIBC))
+	$(info GCC             : $(LIB_GCC))
+	$(info External        : $(LIB_EXTRN))
 #
 # Display the command for the libraries
 config_library:

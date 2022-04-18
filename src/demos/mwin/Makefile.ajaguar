@@ -46,6 +46,52 @@ ObjDEMOS_d	=	$(O_DEMOS_DIR)/mwbrush.d \
 #$(O_DEMOS_DIR)/mwapp.d
 #$(O_DEMOS_DIR)/mwopenfile.d
 
+
+# Demo's arguments objects list
+ObjArgvs		=	$(O_ARGVS_DIR)/mwbrush_Argvs.o \
+					$(O_ARGVS_DIR)/mwcontrols_Argvs.o \
+					$(O_ARGVS_DIR)/mwdemo_Argvs.o \
+					$(O_ARGVS_DIR)/mwdemo2_Argvs.o \
+					$(O_ARGVS_DIR)/mwdemoalpha_Argvs.o \
+					$(O_ARGVS_DIR)/mwdialog_Argvs.o \
+					$(O_ARGVS_DIR)/mwdraw_Argvs.o \
+					$(O_ARGVS_DIR)/mwdvetest_Argvs.o \
+					$(O_ARGVS_DIR)/mwhello_Argvs.o \
+					$(O_ARGVS_DIR)/mwlistcombo_Argvs.o \
+					$(O_ARGVS_DIR)/mwmenu_Argvs.o \
+					$(O_ARGVS_DIR)/mwmine_Argvs.o \
+					$(O_ARGVS_DIR)/mwmsgbox_Argvs.o \
+					$(O_ARGVS_DIR)/mwopenfile_Argvs.o \
+					$(O_ARGVS_DIR)/mwpenstyles_Argvs.o \
+					$(O_ARGVS_DIR)/mwprogbar_Argvs.o \
+					$(O_ARGVS_DIR)/mwsimple_Argvs.o \
+					$(O_ARGVS_DIR)/mwstatictext_Argvs.o \
+					$(O_ARGVS_DIR)/mwstretch_Argvs.o \
+					$(O_ARGVS_DIR)/mwterm_Argvs.o \
+					$(O_ARGVS_DIR)/mwtest_Argvs.o
+#
+ObjArgvs_d		=	$(O_ARGVS_DIR)/mwbrush_Argvs.d \
+					$(O_ARGVS_DIR)/mwcontrols_Argvs.d \
+					$(O_ARGVS_DIR)/mwdemo_Argvs.d \
+					$(O_ARGVS_DIR)/mwdemo2_Argvs.d \
+					$(O_ARGVS_DIR)/mwdemoalpha_Argvs.d \
+					$(O_ARGVS_DIR)/mwdialog_Argvs.d \
+					$(O_ARGVS_DIR)/mwdraw_Argvs.d \
+					$(O_ARGVS_DIR)/mwdvetest_Argvs.d \
+					$(O_ARGVS_DIR)/mwhello_Argvs.d \
+					$(O_ARGVS_DIR)/mwlistcombo_Argvs.d \
+					$(O_ARGVS_DIR)/mwmenu_Argvs.d \
+					$(O_ARGVS_DIR)/mwmine_Argvs.d \
+					$(O_ARGVS_DIR)/mwopenfile_Argvs.d \
+					$(O_ARGVS_DIR)/mwpenstyles_Argvs.d \
+					$(O_ARGVS_DIR)/mwmsgbox_Argvs.d \
+					$(O_ARGVS_DIR)/mwprogbar_Argvs.d \
+					$(O_ARGVS_DIR)/mwsimple_Argvs.d \
+					$(O_ARGVS_DIR)/mwstatictext_Argvs.d \
+					$(O_ARGVS_DIR)/mwstretch_Argvs.d \
+					$(O_ARGVS_DIR)/mwterm_Argvs.d \
+					$(O_ARGVS_DIR)/mwtest_Argvs.d
+
 				
 # All demos mwin executables list
 #
@@ -77,76 +123,266 @@ ExeDEMO	=	$(EXE_DIR)/$(EXE_FILENAME)
 
 # demos mwin link
 #
-link_demos:	$(ExeDEMOS)
+link_demos:	$(ExeDEMOS) $(ObjArgvs)
 #
-# demos mwin link
-link_demo:	$(ExeDEMO)
+# base's demo mwin link
+link_demo:	$(ExeDEMO) $(O_ARGVS_DIR)/$(DEMONAME)_Argvs.o
 #
 $(EXE_DIR)/mwapp_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwapp.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwapp demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwbrush_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwbrush.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwbrush
+$(O_ARGVS_DIR)/mwbrush_Argvs.d:
+$(O_ARGVS_DIR)/mwbrush_Argvs.o: $(SR_ARGVS_DIR)/mwbrush_Argvs.c $(O_ARGVS_DIR)/mwbrush_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwbrush's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwbrush_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwbrush.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwbrush_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwbrush demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwbrush_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwcontrols_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwcontrols.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwcontrols
+$(O_ARGVS_DIR)/mwcontrols_Argvs.d:
+$(O_ARGVS_DIR)/mwcontrols_Argvs.o: $(SR_ARGVS_DIR)/mwcontrols_Argvs.c $(O_ARGVS_DIR)/mwcontrols_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwcontrols's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwcontrols_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwcontrols.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwcontrols_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwcontrols demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwcontrols_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdemo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdemo
+$(O_ARGVS_DIR)/mwdemo_Argvs.d:
+$(O_ARGVS_DIR)/mwdemo_Argvs.o: $(SR_ARGVS_DIR)/mwdemo_Argvs.c $(O_ARGVS_DIR)/mwdemo_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdemo's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdemo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdemo_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdemo demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdemo_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdemo2_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo2.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdemo2
+$(O_ARGVS_DIR)/mwdemo2_Argvs.d:
+$(O_ARGVS_DIR)/mwdemo2_Argvs.o: $(SR_ARGVS_DIR)/mwdemo2_Argvs.c $(O_ARGVS_DIR)/mwdemo2_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdemo2's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdemo2_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemo2.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdemo2_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdemo2 demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdemo2_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdemoalpha_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemoalpha.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdemoalpha
+$(O_ARGVS_DIR)/mwdemoalpha_Argvs.d:
+$(O_ARGVS_DIR)/mwdemoalpha_Argvs.o: $(SR_ARGVS_DIR)/mwdemoalpha_Argvs.c $(O_ARGVS_DIR)/mwdemoalpha_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdemoalpha's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdemoalpha_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdemoalpha.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdemoalpha_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdemoalpha demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdemoalpha_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdialog_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdialog.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdialog
+$(O_ARGVS_DIR)/mwdialog_Argvs.d:
+$(O_ARGVS_DIR)/mwdialog_Argvs.o: $(SR_ARGVS_DIR)/mwdialog_Argvs.c $(O_ARGVS_DIR)/mwdialog_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdialog's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdialog_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdialog.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdialog_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdialog demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdialog_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdraw_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdraw.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdraw
+$(O_ARGVS_DIR)/mwdraw_Argvs.d:
+$(O_ARGVS_DIR)/mwdraw_Argvs.o: $(SR_ARGVS_DIR)/mwdraw_Argvs.c $(O_ARGVS_DIR)/mwdraw_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdraw's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdraw_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdraw.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdraw_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdraw demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdraw_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwdvetest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdvetest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwdvetest
+$(O_ARGVS_DIR)/mwdvetest_Argvs.d:
+$(O_ARGVS_DIR)/mwdvetest_Argvs.o: $(SR_ARGVS_DIR)/mwdvetest_Argvs.c $(O_ARGVS_DIR)/mwdvetest_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdvetest's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwdvetest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwdvetest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwdvetest_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwdvetest demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwdvetest_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwhello_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwhello.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwhello
+$(O_ARGVS_DIR)/mwhello_Argvs.d:
+$(O_ARGVS_DIR)/mwhello_Argvs.o: $(SR_ARGVS_DIR)/mwhello_Argvs.c $(O_ARGVS_DIR)/mwhello_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwhello's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwhello_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwhello.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwhello_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwhello demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwhello_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwlistcombo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwlistcombo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwlistcombo
+$(O_ARGVS_DIR)/mwlistcombo_Argvs.d:
+$(O_ARGVS_DIR)/mwlistcombo_Argvs.o: $(SR_ARGVS_DIR)/mwlistcombo_Argvs.c $(O_ARGVS_DIR)/mwlistcombo_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwlistcombo's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwlistcombo_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwlistcombo.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwlistcombo_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwlistcombo demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwlistcombo_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwmenu_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmenu.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwmenu
+$(O_ARGVS_DIR)/mwmenu_Argvs.d:
+$(O_ARGVS_DIR)/mwmenu_Argvs.o: $(SR_ARGVS_DIR)/mwmenu_Argvs.c $(O_ARGVS_DIR)/mwmenu_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwmenu's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwmenu_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmenu.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwmenu_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwmenu demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwmenu_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwmine_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmine.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwmine
+$(O_ARGVS_DIR)/mwmine_Argvs.d:
+$(O_ARGVS_DIR)/mwmine_Argvs.o: $(SR_ARGVS_DIR)/mwmine_Argvs.c $(O_ARGVS_DIR)/mwmine_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwmine's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwmine_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmine.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwmine_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwmine demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwmine_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwmsgbox_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmsgbox.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwmsgbox
+$(O_ARGVS_DIR)/mwmsgbox_Argvs.d:
+$(O_ARGVS_DIR)/mwmsgbox_Argvs.o: $(SR_ARGVS_DIR)/mwmsgbox_Argvs.c $(O_ARGVS_DIR)/mwmsgbox_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwmsgbox's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwmsgbox_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwmsgbox.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwmsgbox_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwmsgbox demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwmsgbox_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwopenfile_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwopenfile.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwopenfile
+$(O_ARGVS_DIR)/mwopenfile_Argvs.d:
+$(O_ARGVS_DIR)/mwopenfile_Argvs.o: $(SR_ARGVS_DIR)/mwopenfile_Argvs.c $(O_ARGVS_DIR)/mwopenfile_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwopenfile's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwopenfile_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwopenfile.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwopenfile_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwopenfile demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwopenfile_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwpenstyles_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwpenstyles.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwpenstyles
+$(O_ARGVS_DIR)/mwpenstyles_Argvs.d:
+$(O_ARGVS_DIR)/mwpenstyles_Argvs.o: $(SR_ARGVS_DIR)/mwpenstyles_Argvs.c $(O_ARGVS_DIR)/mwpenstyles_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwpenstyles's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwpenstyles_$(env)_DRAM8MB_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwpenstyles.o mwELFls_$(VERSION_LIB)_$(env)_DRAM8MB build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwpenstyles_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwpenstyles demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS_DRAM8MB) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwpenstyles_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwprogbar_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwprogbar.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwprogbar
+$(O_ARGVS_DIR)/mwprogbar_Argvs.d:
+$(O_ARGVS_DIR)/mwprogbar_Argvs.o: $(SR_ARGVS_DIR)/mwprogbar_Argvs.c $(O_ARGVS_DIR)/mwprogbar_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwprogbar's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwprogbar_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwprogbar.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwprogbar_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwprogbar demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwprogbar_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwsimple_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwsimple.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwsimple
+$(O_ARGVS_DIR)/mwsimple_Argvs.d:
+$(O_ARGVS_DIR)/mwsimple_Argvs.o: $(SR_ARGVS_DIR)/mwsimple_Argvs.c $(O_ARGVS_DIR)/mwsimple_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwdemo's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwsimple_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwsimple.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwsimple_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwsimple demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwsimple_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwstatictext_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstatictext.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwstatictext
+$(O_ARGVS_DIR)/mwstatictext_Argvs.d:
+$(O_ARGVS_DIR)/mwstatictext_Argvs.o: $(SR_ARGVS_DIR)/mwstatictext_Argvs.c $(O_ARGVS_DIR)/mwstatictext_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwstatictext's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwstatictext_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstatictext.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwstatictext_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwstastictext demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwstatictext_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwstretch_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstretch.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwstretch
+$(O_ARGVS_DIR)/mwstretch_Argvs.d:
+$(O_ARGVS_DIR)/mwstretch_Argvs.o: $(SR_ARGVS_DIR)/mwstretch_Argvs.c $(O_ARGVS_DIR)/mwstretch_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwstretch's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwstretch_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwstretch.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwstretch_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwstretch demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwstretch_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwterm_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwterm.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwterm
+$(O_ARGVS_DIR)/mwterm_Argvs.d:
+$(O_ARGVS_DIR)/mwterm_Argvs.o: $(SR_ARGVS_DIR)/mwterm_Argvs.c $(O_ARGVS_DIR)/mwterm_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwterm's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwterm_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwterm.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwterm_Argvs.o $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwterm demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwterm_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_DIR)/$(LIBIMAGES_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 #
-$(EXE_DIR)/mwtest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwtest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
-		$(JAGLINKR) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
+# Demo mwtest
+$(O_ARGVS_DIR)/mwtest_Argvs.d:
+$(O_ARGVS_DIR)/mwtest_Argvs.o: $(SR_ARGVS_DIR)/mwtest_Argvs.c $(O_ARGVS_DIR)/mwtest_Argvs.d $(MW_AJAGUAR_PRJ)/makefile $(MW_BASE_SRC)/config
+	@echo -e "\033[01;33m***\033[00;32m Compiling $< for the mwtest's arguments...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+ifeq ($(GET_SFromC),yes)	
+#	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_ARGVS_DIR)/$(DEMONAME)_Argvs.s
+endif
+$(EXE_DIR)/mwtest_$(env)_$(COMPILER_SELECT).$(ALNExt):	$(O_DEMOS_DIR)/mwtest.o mwELFls_$(VERSION_LIB)_$(env) build.bat makefile $(ObjRuntime) $(O_ARGVS_DIR)/mwtest_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS)
+	@echo -e "\033[01;33m***\033[00;32m Linking the mwtest demo...\033[00m"
+	$(Q)$(LNKProg) $(ALNFLAGS) $< -o $@ $(ObjRuntime) $(O_ARGVS_DIR)/mwtest_Argvs.o $(LIB_DIR)/$(LIBMW_FILENAME) $(LIB_EXTRN) $(LIBM) $(LIBC) $(LIB_GCC) $(LIB_OS) > $@.map
 
 
 # demos mwin compilation
@@ -158,155 +394,177 @@ include $(ObjDEMOS_d)
 #
 $(O_DEMOS_DIR)/mwapp.d:
 $(O_DEMOS_DIR)/mwapp.o: $(C_DEMOS_DIR)/mwapp.c $(O_DEMOS_DIR)/mwapp.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwapp demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwapp.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwapp.s
 endif
 #
 $(O_DEMOS_DIR)/mwbrush.d:
 $(O_DEMOS_DIR)/mwbrush.o: $(C_DEMOS_DIR)/mwbrush.c $(O_DEMOS_DIR)/mwbrush.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwbrush demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwbrush.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwbrush.s
 endif
 #
 $(O_DEMOS_DIR)/mwcontrols.d:
 $(O_DEMOS_DIR)/mwcontrols.o: $(C_DEMOS_DIR)/mwcontrols.c $(O_DEMOS_DIR)/mwcontrols.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwcontrols demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwcontrols.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwcontrols.s
 endif
 #
 $(O_DEMOS_DIR)/mwdemo.d:
 $(O_DEMOS_DIR)/mwdemo.o: $(C_DEMOS_DIR)/mwdemo.c $(O_DEMOS_DIR)/mwdemo.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
-	$(objcopy) --rename-section .data=.mwdemosmwindata $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdemo demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	$(Q)$(objcopy) --rename-section .data=.mwdemosmwindata $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo.s
 endif
 #
 $(O_DEMOS_DIR)/mwdemo2.d:
 $(O_DEMOS_DIR)/mwdemo2.o: $(C_DEMOS_DIR)/mwdemo2.c $(O_DEMOS_DIR)/mwdemo2.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdemo2 demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo2.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemo2.s
 endif
 #
 $(O_DEMOS_DIR)/mwdemoalpha.d:
 $(O_DEMOS_DIR)/mwdemoalpha.o: $(C_DEMOS_DIR)/mwdemoalpha.c $(O_DEMOS_DIR)/mwdemoalpha.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdemoalpha demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemoalpha.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdemoalpha.s
 endif
 #
 $(O_DEMOS_DIR)/mwdialog.d:
 $(O_DEMOS_DIR)/mwdialog.o: $(C_DEMOS_DIR)/mwdialog.c $(O_DEMOS_DIR)/mwdialog.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdialog demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdialog.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdialog.s
 endif
 #
 $(O_DEMOS_DIR)/mwdraw.d:
 $(O_DEMOS_DIR)/mwdraw.o: $(C_DEMOS_DIR)/mwdraw.c $(O_DEMOS_DIR)/mwdraw.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdraw demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdraw.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdraw.s
 endif
 #
 $(O_DEMOS_DIR)/mwdvetest.d:
 $(O_DEMOS_DIR)/mwdvetest.o: $(C_DEMOS_DIR)/mwdvetest.c $(O_DEMOS_DIR)/mwdvetest.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(WARP_INC) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwdvetest demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(WARP_INC) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdvetest.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwdvetest.s
 endif
 #
 $(O_DEMOS_DIR)/mwhello.d:
 $(O_DEMOS_DIR)/mwhello.o: $(C_DEMOS_DIR)/mwhello.c $(O_DEMOS_DIR)/mwhello.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwhello demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwhello.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwhello.s
 endif
 #
 $(O_DEMOS_DIR)/mwlistcombo.d:
 $(O_DEMOS_DIR)/mwlistcombo.o: $(C_DEMOS_DIR)/mwlistcombo.c $(O_DEMOS_DIR)/mwlistcombo.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwlistcombo demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwlistcombo.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwlistcombo.s
 endif
 #
 $(O_DEMOS_DIR)/mwmenu.d:
 $(O_DEMOS_DIR)/mwmenu.o: $(C_DEMOS_DIR)/mwmenu.c $(O_DEMOS_DIR)/mwmenu.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwmenu demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmenu.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmenu.s
 endif
 #
 $(O_DEMOS_DIR)/mwmine.d:
 $(O_DEMOS_DIR)/mwmine.o: $(C_DEMOS_DIR)/mwmine.c $(O_DEMOS_DIR)/mwmine.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwmine demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmine.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmine.s
 endif
 #
 $(O_DEMOS_DIR)/mwmsgbox.d:
 $(O_DEMOS_DIR)/mwmsgbox.o: $(C_DEMOS_DIR)/mwmsgbox.c $(O_DEMOS_DIR)/mwmsgbox.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwmsgbox demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmsgbox.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwmsgbox.s
 endif
 #
 $(O_DEMOS_DIR)/mwopenfile.d:
 $(O_DEMOS_DIR)/mwopenfile.o: $(C_DEMOS_DIR)/mwopenfile.c $(O_DEMOS_DIR)/mwopenfile.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwopenfile demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwopenfile.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwopenfile.s
 endif
 #
 $(O_DEMOS_DIR)/mwpenstyles.d:
 $(O_DEMOS_DIR)/mwpenstyles.o: $(C_DEMOS_DIR)/mwpenstyles.c $(O_DEMOS_DIR)/mwpenstyles.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwpenstyles demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwpenstyles.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwpenstyles.s
 endif
 #
 $(O_DEMOS_DIR)/mwprogbar.d:
 $(O_DEMOS_DIR)/mwprogbar.o: $(C_DEMOS_DIR)/mwprogbar.c $(O_DEMOS_DIR)/mwprogbar.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwprogbar demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwprogbar.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwprogbar.s
 endif
 #
 $(O_DEMOS_DIR)/mwsimple.d:
 $(O_DEMOS_DIR)/mwsimple.o: $(C_DEMOS_DIR)/mwsimple.c $(O_DEMOS_DIR)/mwsimple.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwsimple demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwsimple.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwsimple.s
 endif
 #
 $(O_DEMOS_DIR)/mwstatictext.d:
 $(O_DEMOS_DIR)/mwstatictext.o: $(C_DEMOS_DIR)/mwstatictext.c $(O_DEMOS_DIR)/mwstatictext.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwstatictext demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstatictext.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstatictext.s
 endif
 #
 $(O_DEMOS_DIR)/mwstretch.d:
 $(O_DEMOS_DIR)/mwstretch.o: $(C_DEMOS_DIR)/mwstretch.c $(O_DEMOS_DIR)/mwstretch.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwstretch demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstretch.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwstretch.s
 endif
 #
 $(O_DEMOS_DIR)/mwterm.d:
 $(O_DEMOS_DIR)/mwterm.o: $(C_DEMOS_DIR)/mwterm.c $(O_DEMOS_DIR)/mwterm.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwterm demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwterm.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwterm.s
 endif
 #
 $(O_DEMOS_DIR)/mwtest.d:
 $(O_DEMOS_DIR)/mwtest.o: $(C_DEMOS_DIR)/mwtest.c $(O_DEMOS_DIR)/mwtest.d $(MW_BASE_SRC)/config $(MW_AJAGUAR_PRJ)/makefile
-	$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
+	@echo -e "\033[01;33m***\033[00;32m Compiling the mwtest demo...\033[00m"
+	$(Q)$(CCProg) $< $(CCOpt) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $@
 ifeq ($(GET_SFromC),yes)	
-	$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwtest.s
+	$(Q)$(CCProg) $< $(CCOpt) $(GET_SFromC_Option) $(CCDefine) $(SDK_INC) $(CC_INC) $(H_INC) $(WIN_INC) -o $(S_DEMOS_DIR)/mwtest.s
 endif
