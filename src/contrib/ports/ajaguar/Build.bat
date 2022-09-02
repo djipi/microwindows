@@ -1,7 +1,7 @@
 @echo off
 cls
 echo.
-echo Build microwindows library and tests applications
+echo Build microwindows library, and tests applications, for the Atari Jaguar
 echo.
 
 if %1.==. goto usage
