@@ -10,6 +10,16 @@ MAKE_VERSION := $(shell make -v 2>/dev/null)
 ifneq ($(findstring 4.3, $(MAKE_VERSION)), 4.3)
 $(error make version must be 4.3 or upper)
 endif
+# Check python setup
+DOT := $(shell command -v python 2> /dev/null)
+ifndef DOT
+$(error No setup for Python found)
+endif
+# Check perl setup
+DOT := $(shell command -v perl 2> /dev/null)
+ifndef DOT
+$(error No setup for Perl found)
+endif
 
 
 # Support detection
@@ -32,22 +42,17 @@ endif
 
 # Environement detections
 #
-ifndef env
-$(error env is missing)
-else
-ifeq ($(env), Debug)
-VERSION	= DEBUG
-else
-ifeq ($(env), Release)
-VERSION	= RELEASE
-else
-ifeq ($(env), Profile)
-VERSION	= PROFILE
-else
-$(error env is not recognised, must be either Debug, Profile or Release)
+ifdef env
+ifneq ($(env), Debug)
+ifneq ($(env), Release)
+ifneq ($(env), Profile)
+$(error env is not recognised; must be either Debug, Profile, Release)
 endif
 endif
 endif
+VERSION = $(shell python -c "print('$(env)'.upper())")
+else
+$(error env is missing; must be either Debug, Profile, Release)
 endif
 
 
@@ -184,43 +189,7 @@ IMAGES_REPORTS_DIR	= $(IMAGES_DIR)/reports/$(COMPILER_SELECT)
 #
 EXE_FILENAME	=	$(DEMONAME)_$(env)_$(COMPILER_SELECT).$(ALNExt)
 
-# C compiler information
-#
-# GCC
-#
-ifeq ($(GCCMatch), yes)
-CCOpt = -c -m68000 -Wall -Wextra -MD -MP
-# Verbose configuration
-ifeq ($(VERBOSE), Y)
-CCOpt += -v
-endif
-# Options configuration
-ifeq ($(FORMAT), elf)
-ifneq ($(env), Release)
-CCOpt += -gdwarf-2
-endif
-endif
-#-fno-align-functions
-#Debug
-ifeq ($(env), Debug)
-CCOpt += -g -O0
-# -mno-align-int -mstrict-align
-# -gdwarf-2 -Werror -msoft-float -malign-int -fno-leading-underscore -MD -MP -fstack-usage -pedantic-errors -Wfatal-errors
-else
-#Release
-ifeq ($(env), Release)
-CCOpt += -fomit-frame-pointer -Ofast -DNDEBUG
-# -Werror -Wfatal-errors
-else
-# Profile
-ifeq ($(env), Profile)
-CCOpt += -pg -g -O0 -fstack-usage -DDEBUG
-# -pedantic-errors -Wfatal-errors
-else
-$(error $(env) is not recognised, or not configured)
-endif
-endif
-endif
+# Defines for the compiler, tools and assembler
 CCDefine = -DPATH_MAX=260 -D$(ARCH) -DHAVE_SIGNAL=0 -DHAVE_MMAP=0 -DNOMAIN=0 -DMOUSE=$(MOUSE) -DKEYBOARD=$(KEYBOARD) -DSCREEN=$(SCREEN) -DSCREEN_WIDTH=$(SCREEN_WIDTH) -DSCREEN_HEIGHT=$(SCREEN_HEIGHT) -DSCREEN_PIXTYPE=$(SCREEN_PIXTYPE) -DMWPIXEL_FORMAT=$(SCREEN_PIXTYPE) -DSCREEN_DEPTH=$(SCREEN_DEPTH)
 ifneq ($(INTL), Y)
 CCDefine += -DMW_FEATURE_INTL=0
@@ -298,6 +267,51 @@ endif
 ifeq ($(HAVE_FNT_SUPPORT), Y)
 CCDefine += -DHAVE_FNT_SUPPORT=1
 endif
+
+# C compiler information
+#
+# VBcc, GCC, and Clang
+#
+H_INC = -I$(MW_BASE_SRC)/include -IC:\SDK\AJaguar\OfficialJaguarKit\INCLUDE
+ifeq ($(WINEXTRA), Y)
+H_INC += -I$(WINEXTRA_INCLUDE)
+endif
+#
+# GCC & Clang
+#
+ifeq ($(GCCMatch), yes)
+CCOpt = -c -m68000 -Wall -Wextra -MD -MP
+# Verbose configuration
+ifeq ($(VERBOSE), Y)
+CCOpt += -v
+endif
+# Options configuration
+ifeq ($(FORMAT), elf)
+ifneq ($(env), Release)
+CCOpt += -gdwarf-2
+endif
+endif
+#-fno-align-functions
+#Debug
+ifeq ($(env), Debug)
+CCOpt += -g -O0
+# -mno-align-int -mstrict-align
+# -gdwarf-2 -Werror -msoft-float -malign-int -fno-leading-underscore -MD -MP -fstack-usage -pedantic-errors -Wfatal-errors
+else
+#Release
+ifeq ($(env), Release)
+CCOpt += -fomit-frame-pointer -Ofast -DNDEBUG
+# -Werror -Wfatal-errors
+else
+# Profile
+ifeq ($(env), Profile)
+CCOpt += -pg -g -O0 -fstack-usage -DDEBUG
+# -pedantic-errors -Wfatal-errors
+else
+$(error $(env) is not recognised, or not configured)
+endif
+endif
+endif
 #-D NO_LIBGCC_A -D INT_8_BITS -D _SUPPORT_ARGS -D_USE_STDINT 
 #SDK_INC = -IC:/SDK/Jaguar/jlibc-0.5.8/include
 #-I./src/OSJag -I./src/DirectJag
@@ -306,11 +320,7 @@ endif
 #WARP_INC = -IC:/SDK/Jaguar/jlibc-0.5.8/include
 CC_INC = -I$(CCINC1) -I$(CCINC2)
 # -IC:/Projects/Lib-M68K/include
-H_INC = -I$(MW_BASE_SRC)/include -IC:\SDK\AJaguar\OfficialJaguarKit\INCLUDE
 WARP_INC = -IC:/Projects/Lib-M68K/include
-ifeq ($(WINEXTRA), Y)
-H_INC += -I$(WINEXTRA_INCLUDE)
-endif
 #WIN_INC = -I./src/WinJag
 #-IC:/Projects/mingw32/include
 #-I./Sys
@@ -320,18 +330,29 @@ else
 # VBcc
 #
 ifeq ($(COMPILER_C_TYPE), vbcc)
-ifeq ($(FORMAT), elf)
-CCProg = C:/VB/vbcc$(COMPILER_C_VERSION)/bin/vc
+CCOpt = -cpu=68000 -merge-strings -c -no-trigraphs
+#Debug
+ifeq ($(env), Debug)
+CCOpt += -O0 -g -stack-check -no-delayed-popping
 else
-$(error FORMAT is not set or wrongly dispatched for $(COMPILER_SELECT))
+#Release, Profile & Retail
+CCOpt += -O2 -final -unroll-all -prefer-statics -range-opt -speed
+CCDefine += -DNDEBUG
+#Retail
+ifeq ($(env), Retail)
+CCOpt += -warnings-as-errors -warn=-1
+else
+#Profile
+ifeq ($(env), Profile)
+CCOpt += -prof
 endif
-CCOpt = +vc$(COMPILER_C_VERSION)_$(env).cfg
-CCDefine =
-SDK_INC =
-OPENGL_INC =
-CC_INC =
-H_INC =
-WIN_INC =
+endif
+endif
+#SDK_INC =
+#OPENGL_INC =
+#CC_INC =
+#H_INC =
+#WIN_INC =
 GET_SFromC_Option = -S
 else
 #
@@ -431,14 +452,17 @@ TODOS_OPT = -o -u -v
 CONVBMP = $(MW_BASE_SRC)\images\vs2017\tools\x64\Release\convbmp
 
 # Dependencies list
-DEPENDENCE_LIST	= build.bat makefile $(MW_BASE_SRC)/config $(LIB_OS) $(LIB_EXTRN) $(LIB_GCC) $(LIB_C) $(LIB_M)
+DEPENDENCE_LIST	= build.bat makefile $(MW_BASE_SRC)/config
+# $(LIB_OS) $(LIB_EXTRN) $(LIB_GCC) $(LIB_C) $(LIB_M)
 
 
 # Check directory existence
 #
-ifeq ("$(wildcard $(O_DEMOS_DIR))","")
 ifneq ($(cmd), makedirs)
+ifneq ($(cmd), config)
+ifeq ("$(wildcard $(O_DEMOS_DIR))","")
 $(error the directories to create $(EXE_FILENAME) don't exist, please use makedirs command)
+endif
 endif
 endif
 
@@ -479,7 +503,7 @@ library:			$(LIB_DIR)/$(LIBMW_FILENAME) \
 					$(LIB_DIR)/$(LIBDRIVERS_FILENAME) \
 					$(LIB_DIR)/$(LIBFONTS_FILENAME) \
 					$(LIB_DIR)/$(LIBIMAGES_FILENAME)
-#					
+#
 library_winextra:	$(LIB_DIR)/$(LIBWINEXTRA_FILENAME)
 
 
@@ -1001,7 +1025,7 @@ config_library:
 # Display generic information
 config_generic:
 	$(info ----------------- Generic)
-	$(info Make            : $(MAKE_VERSION))
+	$(info Make version    : $(MAKE_VERSION))
 	$(info Format          : $(FORMAT))
 	$(info Assembler       : $(ASM))
 	$(info Compiler        : $(COMPILER_C_TYPE) $(COMPILER_C_VERSION))
