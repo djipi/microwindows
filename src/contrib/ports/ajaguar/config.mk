@@ -117,17 +117,19 @@ endif
 #
 else
 ifeq ($(COMPILER_C_TYPE), vbcc)
-#
-# ELF format
-ifeq ($(FORMAT), elf)
-# ELF vbcc compiler
-CCProg = C:/VB/vbcc$(COMPILER_C_VERSION)/bin/vc
-# CCProg = C:/VB/vbcc$(COMPILER_C_VERSION)/bin/vbccm68k
-#
-# Unknown format
-else
-$(error FORMAT is not set or wrongly dispatched for $(COMPILER_SELECT))
-endif
+# vbcc executables
+CCPATH = C:/VB/vbcc$(COMPILER_C_VERSION)
+CCProg = C:/VB/vbcc$(COMPILER_C_VERSION)/bin/vc +C:/VB/vbcc$(COMPILER_C_VERSION)/config/jaguar
+#$(FORMAT)
+# CCProg = C:/VB/vbcc$(COMPILER_C_VERSION)/bin/vbccm68k/
+# ARProg = C:/GNU/m68k-elf-gcc-$(COMPILER_TOOLS_VERSION)/bin/m68k-elf-ar
+# ARANProg = C:/GNU/m68k-elf-gcc-$(COMPILER_TOOLS_VERSION)/bin/m68k-elf-ranlib
+objdump = c:/VB/vobjdump_win32_0.5.exe
+readelf	= C:/GNU/m68k-$(FORMAT)-gcc-$(COMPILER_TOOLS_VERSION)/bin/m68k-$(FORMAT)-readelf
+# vbcc headers library
+# CCINC1 = C:/VB/vbcc$(COMPILER_C_VERSION)/targets/m68k-jaguar/include
+# gcc libraries
+DIRLIBC = C:/VB/vbcc$(COMPILER_C_VERSION)/targets/m68k-jaguar/lib
 #
 # Compiler not set
 #
